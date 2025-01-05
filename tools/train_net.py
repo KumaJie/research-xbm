@@ -48,6 +48,25 @@ class CustomResNet50(torch.nn.Module):
         x = F.normalize(x)
         return x
 
+class MyNet(torch.nn.Module):
+    def __init__(self, num_classes=256):
+        super(MyNet, self).__init__()
+        self.backbone = models.mobilenet_v3_large(weights='IMAGENET1K_V2').features
+        self.fc = nn.Linear(960, num_classes)
+        torch.nn.init.xavier_normal_(self.fc.weights)
+        torch.nn.init.constant_(self.fc.bias, 0.0)
+
+
+    def gem(self, x, p=3, eps=1e-6):
+        return F.avg_pool2d(x.clamp(min=eps).pow(p), (x.size(-2), x.size(-1))).pow(1. / p)
+
+    def forward(self, x):
+        x = self.backbone(x)
+        x = self.gem(x).view(x.size(0), -1)
+        x = self.fc(x)
+        x = F.normalize(x)
+        return x
+
 
 
 
@@ -55,7 +74,8 @@ def train(cfg):
     logger = setup_logger(name="Train", level=cfg.LOGGER.LEVEL)
     logger.info(cfg)
     # model = build_model(cfg)
-    model = CustomResNet50(cfg.MODEL.HEAD.DIM)
+    # model = CustomResNet50(cfg.MODEL.HEAD.DIM)
+    model = MyNet(cfg.MODEL.HEAD.DIM)
     device = torch.device(cfg.MODEL.DEVICE)
     model.to(device)
     # if len(os.environ["CUDA_VISIBLE_DEVICES"]) > 1:
