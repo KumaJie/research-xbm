@@ -53,8 +53,6 @@ class BaseDataSet(Dataset):
                 _label = int(t[1])
                 self.path_list.append(_path)
                 self.label_list.append(_label)
-                self.path_list.append(_path)
-                self.label_list.append(_label)
 
     def _build_label_index_dict(self):
         index_dict = defaultdict(list)

@@ -62,10 +62,10 @@ def do_train(
     _train_loader = iter(train_loader)
     while iteration <= max_iter:
         try:
-            images, targets, indices = _train_loader.next()
+            images, targets, indices = next(_train_loader)
         except StopIteration:
             _train_loader = iter(train_loader)
-            images, targets, indices = _train_loader.next()
+            images, targets, indices = next(_train_loader)
 
         if (
             iteration % cfg.VALIDATION.VERBOSE == 0 or iteration == max_iter
