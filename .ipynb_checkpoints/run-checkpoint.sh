@@ -1,1 +1,0 @@
-python -u tools/train_net.py --cfg configs/config.yaml >> test.log 2>&1 &
