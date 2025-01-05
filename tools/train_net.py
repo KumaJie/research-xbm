@@ -7,8 +7,14 @@
 #
 # This source code is licensed under the LICENSE file in the root directory of this source tree.
 
+import sys
+sys.path.append('..')
+
 import argparse
 import torch
+import torch.nn.functional as F
+from torch import nn
+import torchvision.models as models
 import os
 
 from ret_benchmark.config import cfg
@@ -26,15 +32,34 @@ import resource
 rlimit = resource.getrlimit(resource.RLIMIT_NOFILE)
 resource.setrlimit(resource.RLIMIT_NOFILE, (2048, rlimit[1]))
 
+class CustomResNet50(torch.nn.Module):
+    def __init__(self, num_classes=256):
+        super(CustomResNet50, self).__init__()
+        # 加载预训练的 ResNet50 模型
+        self.resnet50 = models.resnet50(weights='IMAGENET1K_V1')
+
+        # 修改全连接层，将输出维度改为256
+        self.resnet50.fc = nn.Linear(self.resnet50.fc.in_features, num_classes)
+        torch.nn.init.kaiming_normal_(self.resnet50.fc.weight, a=0, mode="fan_out")
+        torch.nn.init.constant_(self.resnet50.fc.bias, 0.0)
+
+    def forward(self, x):
+        x = self.resnet50(x)
+        x = F.normalize(x)
+        return x
+
+
+
 
 def train(cfg):
     logger = setup_logger(name="Train", level=cfg.LOGGER.LEVEL)
     logger.info(cfg)
-    model = build_model(cfg)
+    # model = build_model(cfg)
+    model = CustomResNet50()
     device = torch.device(cfg.MODEL.DEVICE)
     model.to(device)
-    if len(os.environ["CUDA_VISIBLE_DEVICES"]) > 1:
-        model = torch.nn.DataParallel(model)
+    # if len(os.environ["CUDA_VISIBLE_DEVICES"]) > 1:
+    #     model = torch.nn.DataParallel(model)
 
     criterion = build_loss(cfg)
 

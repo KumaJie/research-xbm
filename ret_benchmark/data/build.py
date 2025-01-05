@@ -28,7 +28,7 @@ def build_data(cfg, is_train=True):
             )
             data_loader = DataLoader(
                 dataset,
-                collate_fn=collate_fn,
+                # collate_fn=collate_fn,
                 batch_sampler=sampler,
                 num_workers=cfg.DATA.NUM_WORKERS,
                 pin_memory=True,
@@ -36,7 +36,7 @@ def build_data(cfg, is_train=True):
         elif cfg.DATA.SAMPLE == "Random":
             data_loader = DataLoader(
                 dataset,
-                collate_fn=collate_fn,
+                # collate_fn=collate_fn,
                 shuffle=True,
                 batch_size=cfg.DATA.TRAIN_BATCHSIZE,
                 drop_last=True,
@@ -57,7 +57,7 @@ def build_data(cfg, is_train=True):
                 dataset = BaseDataSet(x, transforms=transforms, mode=cfg.INPUT.MODE)
                 data_loader = DataLoader(
                     dataset,
-                    collate_fn=collate_fn,
+                    # collate_fn=collate_fn,
                     shuffle=False,
                     batch_size=cfg.DATA.TEST_BATCHSIZE,
                     num_workers=cfg.DATA.NUM_WORKERS,

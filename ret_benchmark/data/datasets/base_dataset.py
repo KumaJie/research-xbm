@@ -44,8 +44,15 @@ class BaseDataSet(Dataset):
 
     def _load_data(self):
         with open(self.img_source, "r") as f:
+            # forget title
+            f.readline()
             for line in f:
-                _path, _label = re.split(r",", line.strip())
+                # _path, _label = re.split(r",", line.strip())
+                t = line.strip().split()
+                _path = t[-1]
+                _label = int(t[1])
+                self.path_list.append(_path)
+                self.label_list.append(_label)
                 self.path_list.append(_path)
                 self.label_list.append(_label)
 
