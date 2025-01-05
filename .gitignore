@@ -17,6 +17,8 @@ __pycache__
 *.tar.gz
 *.rar
 *.egg-info
+*.pth
+save/
 
 #some local files
 */.settings/
