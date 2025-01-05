@@ -54,7 +54,9 @@ class AccuracyCalculator:
         function_names = [x for x in dir(self) if x.startswith(self.function_keyword)]
         metrics = [x.replace(self.function_keyword, "", 1) for x in function_names]
         self.original_function_dict = {x: getattr(self, y) for x, y in zip(metrics, function_names)}
+        # 评估方法：对应函数
         self.original_function_dict = self.get_function_dict(include, exclude)
+        # 需要调用的评估方法
         self.curr_function_dict = self.get_function_dict()
 
     def get_function_dict(self, include=(), exclude=()):

@@ -72,9 +72,10 @@ def do_train(
         ) and iteration > 0:
             model.eval()
             logger.info("Validation")
-
+            # 获取测试集的标签
             labels = val_loader[0].dataset.label_list
-            labels = np.array([int(k) for k in labels])
+            labels = np.array(labels)
+            # 提取测试集的所有特征
             feats = feat_extractor(model, val_loader[0], logger=logger)
             ret_metric = AccuracyCalculator(include=("precision_at_1", "mean_average_precision_at_r", "r_precision"), exclude=())
             ret_metric = ret_metric.get_accuracy(feats, feats, labels, labels, True)
@@ -82,7 +83,7 @@ def do_train(
             for k, v in ret_metric.items():
                 log_info[f"e_{k}"] = v
 
-            scheduler.step(log_info[f"R@1"])
+            scheduler.step(log_info[f"e_precision_at_1"])
             log_info["lr"] = optimizer.param_groups[0]["lr"]
             if mapr_curr > best_mapr:
                 best_mapr = mapr_curr
