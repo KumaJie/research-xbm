@@ -31,3 +31,4 @@ gradlew.bat
 unused.txt
 output/
 *.egg-info/
+*/.ipynb_checkpoints
