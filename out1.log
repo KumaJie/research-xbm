@@ -1,0 +1,1315 @@
+Traceback (most recent call last):
+  File "tools/train_net.py", line 138, in <module>
+    cfg.merge_from_file(args.cfg_file)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 213, in merge_from_file
+    self.merge_from_other_cfg(cfg)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 217, in merge_from_other_cfg
+    _merge_a_into_b(cfg_other, self, self, [])
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 474, in _merge_a_into_b
+    v = _check_and_coerce_cfg_value_type(v, b[k], k, full_key)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 534, in _check_and_coerce_cfg_value_type
+    raise ValueError(
+ValueError: Type mismatch (<class 'str'> vs. <class 'int'>) with values (default vs. 64) for config key: NAME
+Traceback (most recent call last):
+  File "tools/train_net.py", line 138, in <module>
+    cfg.merge_from_file(args.cfg_file)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 213, in merge_from_file
+    self.merge_from_other_cfg(cfg)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 217, in merge_from_other_cfg
+    _merge_a_into_b(cfg_other, self, self, [])
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 474, in _merge_a_into_b
+    v = _check_and_coerce_cfg_value_type(v, b[k], k, full_key)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 534, in _check_and_coerce_cfg_value_type
+    raise ValueError(
+ValueError: Type mismatch (<class 'str'> vs. <class 'int'>) with values (default vs. 64) for config key: NAME
+Traceback (most recent call last):
+  File "tools/train_net.py", line 138, in <module>
+    cfg.merge_from_file(args.cfg_file)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 213, in merge_from_file
+    self.merge_from_other_cfg(cfg)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 217, in merge_from_other_cfg
+    _merge_a_into_b(cfg_other, self, self, [])
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 474, in _merge_a_into_b
+    v = _check_and_coerce_cfg_value_type(v, b[k], k, full_key)
+  File "/root/.conda/envs/dl/lib/python3.8/site-packages/yacs/config.py", line 534, in _check_and_coerce_cfg_value_type
+    raise ValueError(
+ValueError: Type mismatch (<class 'str'> vs. <class 'int'>) with values (default vs. 64) for config key: NAME
+2025-03-03 15:17:10,922 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 1000
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 15:17:11,535 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 15:17:11,536 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 15:17:11,541 Train INFO: Start training
+2025-03-03 15:17:11,541 Train INFO: >>> use XBM
+2025-03-03 15:17:19,136 Train INFO: eta: 4:12:27  iter: 20  time: 0.0966 (0.3789)  data: 0.0247 (0.1888)  loss: 2.1366 (3.9969)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:21,132 Train INFO: eta: 2:39:24  iter: 40  time: 0.0986 (0.2393)  data: 0.0249 (0.1069)  loss: 2.7222 (3.3915)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:23,079 Train INFO: eta: 2:07:47  iter: 60  time: 0.0969 (0.1920)  data: 0.0259 (0.0799)  loss: 2.8490 (3.1954)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:25,055 Train INFO: eta: 1:52:13  iter: 80  time: 0.0975 (0.1687)  data: 0.0260 (0.0664)  loss: 2.6703 (3.0934)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:26,998 Train INFO: eta: 1:42:40  iter: 100  time: 0.0966 (0.1544)  data: 0.0259 (0.0583)  loss: 2.5255 (3.0060)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:28,953 Train INFO: eta: 1:36:20  iter: 120  time: 0.0975 (0.1450)  data: 0.0256 (0.0529)  loss: 2.4725 (2.9302)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:30,957 Train INFO: eta: 1:32:03  iter: 140  time: 0.0999 (0.1386)  data: 0.0248 (0.0489)  loss: 2.5417 (2.8920)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:32,959 Train INFO: eta: 1:28:48  iter: 160  time: 0.0998 (0.1337)  data: 0.0252 (0.0460)  loss: 2.5578 (2.8541)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:34,905 Train INFO: eta: 1:26:05  iter: 180  time: 0.0968 (0.1297)  data: 0.0256 (0.0437)  loss: 2.3515 (2.8102)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:36,828 Train INFO: eta: 1:23:48  iter: 200  time: 0.0960 (0.1263)  data: 0.0260 (0.0419)  loss: 2.3037 (2.7680)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:38,731 Train INFO: eta: 1:21:53  iter: 220  time: 0.0946 (0.1235)  data: 0.0255 (0.0405)  loss: 2.3784 (2.7382)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:40,651 Train INFO: eta: 1:20:19  iter: 240  time: 0.0955 (0.1212)  data: 0.0260 (0.0393)  loss: 2.3974 (2.7127)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:42,567 Train INFO: eta: 1:18:59  iter: 260  time: 0.0952 (0.1193)  data: 0.0255 (0.0382)  loss: 2.4566 (2.6932)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:44,519 Train INFO: eta: 1:17:55  iter: 280  time: 0.0976 (0.1177)  data: 0.0251 (0.0373)  loss: 2.2830 (2.6640)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:46,454 Train INFO: eta: 1:16:57  iter: 300  time: 0.0967 (0.1163)  data: 0.0261 (0.0365)  loss: 2.2867 (2.6411)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:48,411 Train INFO: eta: 1:16:08  iter: 320  time: 0.0977 (0.1151)  data: 0.0251 (0.0358)  loss: 2.2887 (2.6290)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:50,385 Train INFO: eta: 1:15:28  iter: 340  time: 0.0983 (0.1142)  data: 0.0246 (0.0352)  loss: 2.1433 (2.6034)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:52,355 Train INFO: eta: 1:14:51  iter: 360  time: 0.0977 (0.1133)  data: 0.0247 (0.0346)  loss: 2.4013 (2.5918)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:54,283 Train INFO: eta: 1:14:14  iter: 380  time: 0.0967 (0.1124)  data: 0.0245 (0.0341)  loss: 2.1695 (2.5721)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:56,241 Train INFO: eta: 1:13:43  iter: 400  time: 0.0974 (0.1117)  data: 0.0251 (0.0337)  loss: 2.2205 (2.5577)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:17:58,168 Train INFO: eta: 1:13:12  iter: 420  time: 0.0961 (0.1110)  data: 0.0248 (0.0333)  loss: 2.1599 (2.5368)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:00,067 Train INFO: eta: 1:12:41  iter: 440  time: 0.0938 (0.1102)  data: 0.0246 (0.0329)  loss: 2.0732 (2.5189)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:02,016 Train INFO: eta: 1:12:17  iter: 460  time: 0.0972 (0.1097)  data: 0.0247 (0.0325)  loss: 2.0045 (2.4995)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:03,903 Train INFO: eta: 1:11:49  iter: 480  time: 0.0940 (0.1090)  data: 0.0247 (0.0322)  loss: 2.1874 (2.4924)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:05,837 Train INFO: eta: 1:11:27  iter: 500  time: 0.0971 (0.1086)  data: 0.0248 (0.0319)  loss: 2.0698 (2.4776)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:07,751 Train INFO: eta: 1:11:06  iter: 520  time: 0.0947 (0.1081)  data: 0.0254 (0.0317)  loss: 2.1198 (2.4627)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:09,737 Train INFO: eta: 1:10:51  iter: 540  time: 0.0987 (0.1077)  data: 0.0245 (0.0314)  loss: 2.1133 (2.4535)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:11,687 Train INFO: eta: 1:10:34  iter: 560  time: 0.0976 (0.1074)  data: 0.0235 (0.0311)  loss: 2.0428 (2.4387)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:13,665 Train INFO: eta: 1:10:21  iter: 580  time: 0.0982 (0.1071)  data: 0.0235 (0.0309)  loss: 2.0987 (2.4275)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:15,616 Train INFO: eta: 1:10:06  iter: 600  time: 0.0970 (0.1068)  data: 0.0238 (0.0306)  loss: 2.1076 (2.4177)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:17,561 Train INFO: eta: 1:09:52  iter: 620  time: 0.0967 (0.1065)  data: 0.0237 (0.0304)  loss: 2.0453 (2.4059)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:19,516 Train INFO: eta: 1:09:39  iter: 640  time: 0.0975 (0.1062)  data: 0.0240 (0.0302)  loss: 2.0888 (2.3967)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:21,473 Train INFO: eta: 1:09:27  iter: 660  time: 0.0970 (0.1059)  data: 0.0235 (0.0300)  loss: 2.1127 (2.3889)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:23,410 Train INFO: eta: 1:09:14  iter: 680  time: 0.0958 (0.1057)  data: 0.0235 (0.0298)  loss: 1.9848 (2.3811)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:25,414 Train INFO: eta: 1:09:06  iter: 700  time: 0.0988 (0.1055)  data: 0.0234 (0.0297)  loss: 2.0854 (2.3733)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:27,350 Train INFO: eta: 1:08:54  iter: 720  time: 0.0965 (0.1053)  data: 0.0228 (0.0295)  loss: 2.0193 (2.3624)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:29,309 Train INFO: eta: 1:08:44  iter: 740  time: 0.0966 (0.1051)  data: 0.0231 (0.0293)  loss: 2.0889 (2.3548)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:31,251 Train INFO: eta: 1:08:34  iter: 760  time: 0.0970 (0.1049)  data: 0.0225 (0.0291)  loss: 1.9827 (2.3465)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:33,183 Train INFO: eta: 1:08:24  iter: 780  time: 0.0965 (0.1046)  data: 0.0233 (0.0290)  loss: 1.8528 (2.3351)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:35,201 Train INFO: eta: 1:08:18  iter: 800  time: 0.0968 (0.1046)  data: 0.0235 (0.0289)  loss: 1.9587 (2.3269)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:37,196 Train INFO: eta: 1:08:11  iter: 820  time: 0.0963 (0.1044)  data: 0.0224 (0.0287)  loss: 2.0868 (2.3208)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:39,147 Train INFO: eta: 1:08:03  iter: 840  time: 0.0958 (0.1043)  data: 0.0228 (0.0286)  loss: 2.0733 (2.3147)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:41,093 Train INFO: eta: 1:07:54  iter: 860  time: 0.0954 (0.1041)  data: 0.0220 (0.0284)  loss: 2.0652 (2.3088)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:43,153 Train INFO: eta: 1:07:51  iter: 880  time: 0.0958 (0.1041)  data: 0.0222 (0.0283)  loss: 1.9684 (2.3003)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:45,230 Train INFO: eta: 1:07:49  iter: 900  time: 0.0962 (0.1041)  data: 0.0217 (0.0282)  loss: 2.0357 (2.2947)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:47,999 Train INFO: eta: 1:08:16  iter: 920  time: 0.1037 (0.1048)  data: 0.0223 (0.0287)  loss: 1.9546 (2.2887)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:50,052 Train INFO: eta: 1:08:12  iter: 940  time: 0.0954 (0.1048)  data: 0.0220 (0.0287)  loss: 1.9847 (2.2839)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:53,105 Train INFO: eta: 1:08:49  iter: 960  time: 0.0976 (0.1058)  data: 0.0222 (0.0296)  loss: 1.9368 (2.2761)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:55,176 Train INFO: eta: 1:08:45  iter: 980  time: 0.0942 (0.1057)  data: 0.0211 (0.0295)  loss: 1.9686 (2.2699)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:57,145 Train INFO: eta: 1:08:37  iter: 1000  time: 0.0936 (0.1056)  data: 0.0212 (0.0293)  loss: 1.9372 (2.2644)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:18:57,996 Train INFO: Validation
+2025-03-03 15:18:58,002 Train INFO: Begin extract
+2025-03-03 15:19:55,529 Train INFO: Best iteration 1000: {'mean_average_precision_at_r': 0.3290014485198596, 'precision_at_1': 0.6146904234570758, 'r_precision': 0.3597303880286261}
+2025-03-03 15:19:58,218 Train INFO: eta: 1:46:09  iter: 1020  time: 0.1321 (0.1634)  data: 0.0211 (0.0863)  loss: 8.0611 (2.4018)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:00,953 Train INFO: eta: 1:45:45  iter: 1040  time: 0.1343 (0.1629)  data: 0.0216 (0.0851)  loss: 13.8558 (2.6549)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:03,677 Train INFO: eta: 1:45:22  iter: 1060  time: 0.1348 (0.1624)  data: 0.0218 (0.0839)  loss: 20.2787 (2.9899)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:06,386 Train INFO: eta: 1:45:00  iter: 1080  time: 0.1347 (0.1619)  data: 0.0215 (0.0828)  loss: 19.5350 (3.2965)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:09,226 Train INFO: eta: 1:44:42  iter: 1100  time: 0.1350 (0.1615)  data: 0.0214 (0.0816)  loss: 17.4696 (3.5527)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:11,880 Train INFO: eta: 1:44:19  iter: 1120  time: 0.1329 (0.1610)  data: 0.0213 (0.0806)  loss: 16.8831 (3.7868)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:14,911 Train INFO: eta: 1:44:10  iter: 1140  time: 0.1385 (0.1608)  data: 0.0196 (0.0797)  loss: 16.9040 (4.0141)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:17,633 Train INFO: eta: 1:43:50  iter: 1160  time: 0.1360 (0.1604)  data: 0.0265 (0.0788)  loss: 15.1012 (4.2126)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:20,356 Train INFO: eta: 1:43:31  iter: 1180  time: 0.1350 (0.1600)  data: 0.0259 (0.0779)  loss: 14.5787 (4.3927)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:23,051 Train INFO: eta: 1:43:11  iter: 1200  time: 0.1347 (0.1596)  data: 0.0257 (0.0771)  loss: 14.4513 (4.5593)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:25,765 Train INFO: eta: 1:42:53  iter: 1220  time: 0.1355 (0.1592)  data: 0.0260 (0.0762)  loss: 14.7026 (4.7282)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:28,445 Train INFO: eta: 1:42:34  iter: 1240  time: 0.1329 (0.1588)  data: 0.0263 (0.0754)  loss: 14.8588 (4.8893)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:31,113 Train INFO: eta: 1:42:15  iter: 1260  time: 0.1324 (0.1584)  data: 0.0266 (0.0747)  loss: 12.6271 (5.0333)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:33,790 Train INFO: eta: 1:41:57  iter: 1280  time: 0.1339 (0.1580)  data: 0.0263 (0.0739)  loss: 14.2690 (5.1820)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:36,488 Train INFO: eta: 1:41:40  iter: 1300  time: 0.1344 (0.1576)  data: 0.0261 (0.0732)  loss: 14.0271 (5.3195)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:39,223 Train INFO: eta: 1:41:25  iter: 1320  time: 0.1357 (0.1573)  data: 0.0254 (0.0724)  loss: 13.5215 (5.4458)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:41,982 Train INFO: eta: 1:41:10  iter: 1340  time: 0.1376 (0.1570)  data: 0.0252 (0.0717)  loss: 14.9754 (5.5875)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:44,715 Train INFO: eta: 1:40:56  iter: 1360  time: 0.1362 (0.1567)  data: 0.0250 (0.0710)  loss: 15.1937 (5.7307)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:47,416 Train INFO: eta: 1:40:40  iter: 1380  time: 0.1350 (0.1564)  data: 0.0258 (0.0704)  loss: 13.3637 (5.8453)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:50,114 Train INFO: eta: 1:40:25  iter: 1400  time: 0.1346 (0.1561)  data: 0.0258 (0.0698)  loss: 14.0103 (5.9664)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:52,806 Train INFO: eta: 1:40:11  iter: 1420  time: 0.1337 (0.1558)  data: 0.0259 (0.0691)  loss: 14.2050 (6.0854)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:55,535 Train INFO: eta: 1:39:57  iter: 1440  time: 0.1367 (0.1555)  data: 0.0253 (0.0685)  loss: 14.2792 (6.1993)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:20:58,219 Train INFO: eta: 1:39:43  iter: 1460  time: 0.1335 (0.1552)  data: 0.0255 (0.0679)  loss: 13.3985 (6.3035)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:00,947 Train INFO: eta: 1:39:30  iter: 1480  time: 0.1360 (0.1550)  data: 0.0251 (0.0674)  loss: 14.7560 (6.4194)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:03,683 Train INFO: eta: 1:39:17  iter: 1500  time: 0.1358 (0.1547)  data: 0.0251 (0.0668)  loss: 14.6413 (6.5292)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:06,422 Train INFO: eta: 1:39:05  iter: 1520  time: 0.1363 (0.1545)  data: 0.0251 (0.0663)  loss: 12.7393 (6.6174)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:09,162 Train INFO: eta: 1:38:53  iter: 1540  time: 0.1370 (0.1543)  data: 0.0241 (0.0657)  loss: 15.2257 (6.7267)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:11,867 Train INFO: eta: 1:38:41  iter: 1560  time: 0.1357 (0.1540)  data: 0.0241 (0.0652)  loss: 13.5191 (6.8176)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:14,584 Train INFO: eta: 1:38:29  iter: 1580  time: 0.1348 (0.1538)  data: 0.0243 (0.0647)  loss: 14.3884 (6.9125)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:17,282 Train INFO: eta: 1:38:17  iter: 1600  time: 0.1343 (0.1536)  data: 0.0247 (0.0642)  loss: 13.1359 (6.9968)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:19,978 Train INFO: eta: 1:38:05  iter: 1620  time: 0.1352 (0.1533)  data: 0.0251 (0.0637)  loss: 13.9733 (7.0860)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:22,648 Train INFO: eta: 1:37:52  iter: 1640  time: 0.1326 (0.1531)  data: 0.0252 (0.0632)  loss: 13.7799 (7.1699)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:25,285 Train INFO: eta: 1:37:40  iter: 1660  time: 0.1318 (0.1528)  data: 0.0255 (0.0628)  loss: 13.6512 (7.2520)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:27,939 Train INFO: eta: 1:37:27  iter: 1680  time: 0.1323 (0.1526)  data: 0.0251 (0.0623)  loss: 14.7687 (7.3457)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:30,600 Train INFO: eta: 1:37:15  iter: 1700  time: 0.1327 (0.1524)  data: 0.0250 (0.0619)  loss: 14.6364 (7.4310)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:33,238 Train INFO: eta: 1:37:03  iter: 1720  time: 0.1315 (0.1521)  data: 0.0247 (0.0614)  loss: 14.9390 (7.5156)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:35,883 Train INFO: eta: 1:36:52  iter: 1740  time: 0.1324 (0.1519)  data: 0.0249 (0.0610)  loss: 15.5190 (7.6046)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:38,535 Train INFO: eta: 1:36:40  iter: 1760  time: 0.1319 (0.1517)  data: 0.0247 (0.0606)  loss: 15.0073 (7.6920)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:41,268 Train INFO: eta: 1:36:31  iter: 1780  time: 0.1301 (0.1515)  data: 0.0246 (0.0602)  loss: 13.5550 (7.7634)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:43,897 Train INFO: eta: 1:36:19  iter: 1800  time: 0.1311 (0.1513)  data: 0.0247 (0.0598)  loss: 16.2610 (7.8583)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:46,566 Train INFO: eta: 1:36:09  iter: 1820  time: 0.1332 (0.1511)  data: 0.0239 (0.0594)  loss: 14.2337 (7.9280)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:49,234 Train INFO: eta: 1:35:58  iter: 1840  time: 0.1314 (0.1509)  data: 0.0241 (0.0590)  loss: 14.8052 (8.0087)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:51,886 Train INFO: eta: 1:35:48  iter: 1860  time: 0.1327 (0.1507)  data: 0.0242 (0.0587)  loss: 14.0666 (8.0790)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:54,528 Train INFO: eta: 1:35:37  iter: 1880  time: 0.1316 (0.1505)  data: 0.0240 (0.0583)  loss: 14.0139 (8.1471)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:57,165 Train INFO: eta: 1:35:27  iter: 1900  time: 0.1312 (0.1503)  data: 0.0238 (0.0579)  loss: 15.5125 (8.2246)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:21:59,830 Train INFO: eta: 1:35:17  iter: 1920  time: 0.1323 (0.1501)  data: 0.0237 (0.0576)  loss: 14.2153 (8.2892)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:22:02,460 Train INFO: eta: 1:35:07  iter: 1940  time: 0.1307 (0.1499)  data: 0.0237 (0.0572)  loss: 14.9516 (8.3557)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:22:05,106 Train INFO: eta: 1:34:57  iter: 1960  time: 0.1317 (0.1498)  data: 0.0238 (0.0569)  loss: 14.9822 (8.4229)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:22:07,760 Train INFO: eta: 1:34:47  iter: 1980  time: 0.1319 (0.1496)  data: 0.0235 (0.0565)  loss: 13.2765 (8.4763)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:22:10,462 Train INFO: eta: 1:34:39  iter: 2000  time: 0.1331 (0.1495)  data: 0.0231 (0.0562)  loss: 15.2335 (8.5457)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:22:10,567 Train INFO: Validation
+2025-03-03 15:22:10,572 Train INFO: Begin extract
+2025-03-03 15:23:10,635 Train INFO: Best iteration 2000: {'mean_average_precision_at_r': 0.37684853103164306, 'precision_at_1': 0.6683745991868038, 'r_precision': 0.40831892705012607}
+2025-03-03 15:23:13,324 Train INFO: eta: 1:53:21  iter: 2020  time: 0.1343 (0.1791)  data: 0.0222 (0.0857)  loss: 14.0526 (8.6035)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:16,010 Train INFO: eta: 1:53:01  iter: 2040  time: 0.1335 (0.1787)  data: 0.0227 (0.0850)  loss: 13.6627 (8.6564)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:18,678 Train INFO: eta: 1:52:41  iter: 2060  time: 0.1322 (0.1782)  data: 0.0227 (0.0844)  loss: 14.5461 (8.7132)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:21,413 Train INFO: eta: 1:52:22  iter: 2080  time: 0.1348 (0.1778)  data: 0.0221 (0.0838)  loss: 14.0974 (8.7664)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:24,093 Train INFO: eta: 1:52:03  iter: 2100  time: 0.1328 (0.1774)  data: 0.0228 (0.0833)  loss: 14.7843 (8.8261)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:26,751 Train INFO: eta: 1:51:43  iter: 2120  time: 0.1326 (0.1770)  data: 0.0218 (0.0827)  loss: 13.3151 (8.8716)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:29,438 Train INFO: eta: 1:51:25  iter: 2140  time: 0.1331 (0.1766)  data: 0.0222 (0.0821)  loss: 14.1423 (8.9214)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:32,115 Train INFO: eta: 1:51:06  iter: 2160  time: 0.1324 (0.1762)  data: 0.0209 (0.0816)  loss: 13.7716 (8.9672)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:34,757 Train INFO: eta: 1:50:47  iter: 2180  time: 0.1306 (0.1758)  data: 0.0222 (0.0810)  loss: 13.7683 (9.0099)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:37,422 Train INFO: eta: 1:50:29  iter: 2200  time: 0.1327 (0.1754)  data: 0.0212 (0.0805)  loss: 14.3276 (9.0593)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:40,041 Train INFO: eta: 1:50:11  iter: 2220  time: 0.1308 (0.1750)  data: 0.0213 (0.0799)  loss: 12.8751 (9.0990)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:42,680 Train INFO: eta: 1:49:53  iter: 2240  time: 0.1308 (0.1746)  data: 0.0210 (0.0794)  loss: 14.9360 (9.1513)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:45,301 Train INFO: eta: 1:49:35  iter: 2260  time: 0.1305 (0.1742)  data: 0.0216 (0.0789)  loss: 13.6269 (9.1927)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:47,926 Train INFO: eta: 1:49:17  iter: 2280  time: 0.1303 (0.1738)  data: 0.0211 (0.0784)  loss: 13.8756 (9.2351)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:50,579 Train INFO: eta: 1:49:00  iter: 2300  time: 0.1324 (0.1735)  data: 0.0207 (0.0779)  loss: 13.4648 (9.2751)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:53,572 Train INFO: eta: 1:48:49  iter: 2320  time: 0.1372 (0.1733)  data: 0.0236 (0.0775)  loss: 13.3152 (9.3133)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:56,325 Train INFO: eta: 1:48:34  iter: 2340  time: 0.1375 (0.1730)  data: 0.0239 (0.0771)  loss: 13.5864 (9.3520)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:23:59,021 Train INFO: eta: 1:48:18  iter: 2360  time: 0.1351 (0.1727)  data: 0.0259 (0.0767)  loss: 14.6030 (9.3966)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:01,714 Train INFO: eta: 1:48:03  iter: 2380  time: 0.1335 (0.1723)  data: 0.0261 (0.0762)  loss: 13.6456 (9.4318)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:04,419 Train INFO: eta: 1:47:48  iter: 2400  time: 0.1339 (0.1720)  data: 0.0257 (0.0758)  loss: 14.7246 (9.4746)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:07,125 Train INFO: eta: 1:47:33  iter: 2420  time: 0.1339 (0.1717)  data: 0.0254 (0.0754)  loss: 14.0989 (9.5149)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:09,831 Train INFO: eta: 1:47:18  iter: 2440  time: 0.1338 (0.1714)  data: 0.0257 (0.0750)  loss: 15.5633 (9.5635)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:12,617 Train INFO: eta: 1:47:05  iter: 2460  time: 0.1345 (0.1712)  data: 0.0261 (0.0746)  loss: 15.2145 (9.6099)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:15,308 Train INFO: eta: 1:46:50  iter: 2480  time: 0.1346 (0.1709)  data: 0.0258 (0.0742)  loss: 15.0043 (9.6544)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:17,994 Train INFO: eta: 1:46:36  iter: 2500  time: 0.1335 (0.1706)  data: 0.0260 (0.0738)  loss: 15.6958 (9.7035)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:20,693 Train INFO: eta: 1:46:22  iter: 2520  time: 0.1336 (0.1703)  data: 0.0260 (0.0734)  loss: 14.2729 (9.7399)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:23,361 Train INFO: eta: 1:46:08  iter: 2540  time: 0.1334 (0.1700)  data: 0.0258 (0.0731)  loss: 14.6518 (9.7805)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:26,065 Train INFO: eta: 1:45:54  iter: 2560  time: 0.1350 (0.1697)  data: 0.0255 (0.0727)  loss: 14.1966 (9.8157)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:28,732 Train INFO: eta: 1:45:40  iter: 2580  time: 0.1327 (0.1694)  data: 0.0252 (0.0723)  loss: 15.2420 (9.8529)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:31,405 Train INFO: eta: 1:45:26  iter: 2600  time: 0.1330 (0.1692)  data: 0.0250 (0.0720)  loss: 15.0118 (9.8924)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:34,099 Train INFO: eta: 1:45:13  iter: 2620  time: 0.1328 (0.1689)  data: 0.0256 (0.0716)  loss: 14.5366 (9.9288)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:36,829 Train INFO: eta: 1:45:01  iter: 2640  time: 0.1357 (0.1687)  data: 0.0255 (0.0713)  loss: 15.4017 (9.9703)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:39,510 Train INFO: eta: 1:44:48  iter: 2660  time: 0.1337 (0.1684)  data: 0.0253 (0.0709)  loss: 14.7432 (10.0063)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:42,194 Train INFO: eta: 1:44:35  iter: 2680  time: 0.1333 (0.1681)  data: 0.0252 (0.0706)  loss: 14.4701 (10.0430)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:44,865 Train INFO: eta: 1:44:22  iter: 2700  time: 0.1328 (0.1679)  data: 0.0252 (0.0702)  loss: 12.7291 (10.0635)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:47,573 Train INFO: eta: 1:44:10  iter: 2720  time: 0.1343 (0.1677)  data: 0.0245 (0.0699)  loss: 14.6641 (10.0985)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:50,255 Train INFO: eta: 1:43:57  iter: 2740  time: 0.1325 (0.1674)  data: 0.0250 (0.0696)  loss: 13.5541 (10.1246)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:52,932 Train INFO: eta: 1:43:45  iter: 2760  time: 0.1330 (0.1672)  data: 0.0249 (0.0692)  loss: 15.2855 (10.1617)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:24:55,612 Train INFO: eta: 1:43:32  iter: 2780  time: 0.1330 (0.1669)  data: 0.0253 (0.0689)  loss: 12.9978 (10.1836)  lr: 0.000100  max mem: 2.8 GB
+nohup: ignoring input
+2025-03-03 15:33:52,324 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 1000
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 15:33:52,961 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 15:33:52,962 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 15:33:52,965 Train INFO: Start training
+2025-03-03 15:33:52,965 Train INFO: >>> use XBM
+2025-03-03 15:33:59,255 Train INFO: eta: 3:28:54  iter: 20  time: 0.0977 (0.3135)  data: 0.0257 (0.1331)  loss: 2.1977 (3.0895)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:01,229 Train INFO: eta: 2:17:16  iter: 40  time: 0.0987 (0.2061)  data: 0.0245 (0.0789)  loss: 2.6594 (2.9943)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:03,251 Train INFO: eta: 1:53:55  iter: 60  time: 0.1014 (0.1712)  data: 0.0252 (0.0609)  loss: 2.9174 (2.9787)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:05,327 Train INFO: eta: 1:42:39  iter: 80  time: 0.1020 (0.1543)  data: 0.0254 (0.0520)  loss: 2.4171 (2.8685)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:07,345 Train INFO: eta: 1:35:30  iter: 100  time: 0.1005 (0.1436)  data: 0.0248 (0.0466)  loss: 2.5361 (2.8220)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:09,382 Train INFO: eta: 1:30:49  iter: 120  time: 0.1005 (0.1366)  data: 0.0255 (0.0430)  loss: 2.5567 (2.7885)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:11,412 Train INFO: eta: 1:27:26  iter: 140  time: 0.0989 (0.1316)  data: 0.0251 (0.0405)  loss: 2.5037 (2.7669)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:13,484 Train INFO: eta: 1:25:04  iter: 160  time: 0.1020 (0.1281)  data: 0.0244 (0.0385)  loss: 2.6089 (2.7418)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:15,515 Train INFO: eta: 1:23:04  iter: 180  time: 0.1013 (0.1252)  data: 0.0251 (0.0370)  loss: 2.4679 (2.7158)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:17,493 Train INFO: eta: 1:21:17  iter: 200  time: 0.0987 (0.1225)  data: 0.0254 (0.0359)  loss: 2.4557 (2.6940)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:19,455 Train INFO: eta: 1:19:46  iter: 220  time: 0.0979 (0.1203)  data: 0.0251 (0.0349)  loss: 2.4417 (2.6776)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:21,417 Train INFO: eta: 1:18:30  iter: 240  time: 0.0977 (0.1185)  data: 0.0249 (0.0341)  loss: 2.3796 (2.6612)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:23,473 Train INFO: eta: 1:17:40  iter: 260  time: 0.1039 (0.1173)  data: 0.0251 (0.0334)  loss: 2.4298 (2.6480)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:25,456 Train INFO: eta: 1:16:46  iter: 280  time: 0.0982 (0.1160)  data: 0.0250 (0.0328)  loss: 2.3675 (2.6276)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:27,468 Train INFO: eta: 1:16:04  iter: 300  time: 0.1001 (0.1150)  data: 0.0246 (0.0322)  loss: 2.3813 (2.6079)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:29,522 Train INFO: eta: 1:15:30  iter: 320  time: 0.1012 (0.1142)  data: 0.0241 (0.0317)  loss: 2.4211 (2.5938)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:31,565 Train INFO: eta: 1:15:00  iter: 340  time: 0.1022 (0.1135)  data: 0.0248 (0.0313)  loss: 2.1559 (2.5699)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:33,574 Train INFO: eta: 1:14:29  iter: 360  time: 0.0996 (0.1128)  data: 0.0246 (0.0309)  loss: 2.4142 (2.5597)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:35,549 Train INFO: eta: 1:13:58  iter: 380  time: 0.0975 (0.1120)  data: 0.0240 (0.0306)  loss: 2.3583 (2.5456)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:37,557 Train INFO: eta: 1:13:32  iter: 400  time: 0.0986 (0.1114)  data: 0.0246 (0.0303)  loss: 2.3279 (2.5355)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:39,520 Train INFO: eta: 1:13:05  iter: 420  time: 0.0975 (0.1108)  data: 0.0241 (0.0300)  loss: 2.1500 (2.5194)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:41,464 Train INFO: eta: 1:12:38  iter: 440  time: 0.0973 (0.1102)  data: 0.0248 (0.0297)  loss: 2.2090 (2.5070)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:43,401 Train INFO: eta: 1:12:13  iter: 460  time: 0.0964 (0.1096)  data: 0.0247 (0.0295)  loss: 2.1208 (2.4961)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:45,388 Train INFO: eta: 1:11:54  iter: 480  time: 0.0988 (0.1092)  data: 0.0247 (0.0293)  loss: 2.1601 (2.4853)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:47,345 Train INFO: eta: 1:11:34  iter: 500  time: 0.0977 (0.1087)  data: 0.0247 (0.0291)  loss: 2.0133 (2.4736)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:49,265 Train INFO: eta: 1:11:12  iter: 520  time: 0.0957 (0.1082)  data: 0.0251 (0.0290)  loss: 2.0535 (2.4598)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:51,211 Train INFO: eta: 1:10:54  iter: 540  time: 0.0966 (0.1078)  data: 0.0250 (0.0288)  loss: 2.0513 (2.4489)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:53,177 Train INFO: eta: 1:10:39  iter: 560  time: 0.0973 (0.1075)  data: 0.0249 (0.0287)  loss: 2.2128 (2.4418)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:55,173 Train INFO: eta: 1:10:26  iter: 580  time: 0.0971 (0.1072)  data: 0.0240 (0.0285)  loss: 2.2031 (2.4317)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:57,143 Train INFO: eta: 1:10:13  iter: 600  time: 0.0974 (0.1069)  data: 0.0246 (0.0284)  loss: 2.1176 (2.4231)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:34:59,130 Train INFO: eta: 1:10:01  iter: 620  time: 0.0982 (0.1067)  data: 0.0228 (0.0282)  loss: 1.9673 (2.4099)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:01,164 Train INFO: eta: 1:09:53  iter: 640  time: 0.1007 (0.1065)  data: 0.0238 (0.0281)  loss: 2.0562 (2.4012)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:03,139 Train INFO: eta: 1:09:41  iter: 660  time: 0.0977 (0.1063)  data: 0.0228 (0.0279)  loss: 2.1240 (2.3922)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:05,133 Train INFO: eta: 1:09:31  iter: 680  time: 0.0993 (0.1061)  data: 0.0234 (0.0278)  loss: 1.9934 (2.3813)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:07,117 Train INFO: eta: 1:09:22  iter: 700  time: 0.0984 (0.1059)  data: 0.0234 (0.0277)  loss: 2.0582 (2.3748)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:09,065 Train INFO: eta: 1:09:10  iter: 720  time: 0.0973 (0.1057)  data: 0.0235 (0.0275)  loss: 2.0250 (2.3677)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:10,981 Train INFO: eta: 1:08:58  iter: 740  time: 0.0956 (0.1054)  data: 0.0235 (0.0274)  loss: 2.0986 (2.3589)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:12,902 Train INFO: eta: 1:08:46  iter: 760  time: 0.0959 (0.1052)  data: 0.0232 (0.0273)  loss: 2.1165 (2.3533)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:14,817 Train INFO: eta: 1:08:34  iter: 780  time: 0.0955 (0.1049)  data: 0.0231 (0.0272)  loss: 2.1396 (2.3482)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:16,709 Train INFO: eta: 1:08:22  iter: 800  time: 0.0944 (0.1047)  data: 0.0240 (0.0271)  loss: 1.9743 (2.3402)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:18,615 Train INFO: eta: 1:08:11  iter: 820  time: 0.0939 (0.1044)  data: 0.0231 (0.0270)  loss: 1.9706 (2.3334)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:20,535 Train INFO: eta: 1:08:01  iter: 840  time: 0.0945 (0.1042)  data: 0.0223 (0.0269)  loss: 2.0834 (2.3276)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:22,422 Train INFO: eta: 1:07:50  iter: 860  time: 0.0931 (0.1040)  data: 0.0228 (0.0268)  loss: 2.0271 (2.3211)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:24,343 Train INFO: eta: 1:07:41  iter: 880  time: 0.0959 (0.1038)  data: 0.0227 (0.0268)  loss: 1.9261 (2.3133)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:26,232 Train INFO: eta: 1:07:31  iter: 900  time: 0.0937 (0.1036)  data: 0.0228 (0.0267)  loss: 1.9090 (2.3067)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:28,086 Train INFO: eta: 1:07:19  iter: 920  time: 0.0912 (0.1034)  data: 0.0227 (0.0266)  loss: 1.9090 (2.3004)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:29,906 Train INFO: eta: 1:07:07  iter: 940  time: 0.0910 (0.1031)  data: 0.0230 (0.0265)  loss: 2.0025 (2.2947)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:31,749 Train INFO: eta: 1:06:56  iter: 960  time: 0.0918 (0.1029)  data: 0.0224 (0.0264)  loss: 2.0758 (2.2909)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:33,630 Train INFO: eta: 1:06:47  iter: 980  time: 0.0937 (0.1027)  data: 0.0222 (0.0263)  loss: 1.7924 (2.2823)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:35,510 Train INFO: eta: 1:06:38  iter: 1000  time: 0.0938 (0.1025)  data: 0.0219 (0.0262)  loss: 1.8251 (2.2756)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:35:35,628 Train INFO: Validation
+2025-03-03 15:35:35,633 Train INFO: Begin extract
+Traceback (most recent call last):
+  File "tools/train_net.py", line 139, in <module>
+    train(cfg)
+  File "tools/train_net.py", line 108, in train
+    do_train(
+  File "/root/shared-nvme/research-xbm/ret_benchmark/engine/trainer.py", line 84, in do_train
+    ret_metric = ret_metric.get_accuracy(feats, feats, labels, labels, True)
+KeyError: 'mean_average_precision_at_r'
+nohup: ignoring input
+2025-03-03 15:43:21,316 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 1000
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 15:43:21,851 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 15:43:21,855 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 15:43:21,858 Train INFO: Start training
+2025-03-03 15:43:21,858 Train INFO: >>> use XBM
+2025-03-03 15:43:27,706 Train INFO: eta: 3:14:14  iter: 20  time: 0.1023 (0.2915)  data: 0.0252 (0.0988)  loss: 2.6392 (2.9853)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:29,765 Train INFO: eta: 2:11:21  iter: 40  time: 0.1031 (0.1972)  data: 0.0253 (0.0623)  loss: 2.5939 (2.8517)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:31,783 Train INFO: eta: 1:49:54  iter: 60  time: 0.1001 (0.1651)  data: 0.0259 (0.0501)  loss: 2.7410 (2.8318)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:33,817 Train INFO: eta: 1:39:18  iter: 80  time: 0.1003 (0.1493)  data: 0.0252 (0.0440)  loss: 2.6838 (2.7870)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:35,817 Train INFO: eta: 1:32:42  iter: 100  time: 0.0990 (0.1394)  data: 0.0266 (0.0404)  loss: 2.6655 (2.7679)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:37,776 Train INFO: eta: 1:28:03  iter: 120  time: 0.0983 (0.1325)  data: 0.0264 (0.0381)  loss: 2.6099 (2.7413)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:39,708 Train INFO: eta: 1:24:36  iter: 140  time: 0.0959 (0.1274)  data: 0.0260 (0.0364)  loss: 2.4912 (2.7023)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:41,643 Train INFO: eta: 1:22:01  iter: 160  time: 0.0969 (0.1235)  data: 0.0263 (0.0351)  loss: 2.4327 (2.6765)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:43,583 Train INFO: eta: 1:20:01  iter: 180  time: 0.0969 (0.1206)  data: 0.0261 (0.0341)  loss: 2.4622 (2.6503)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:45,523 Train INFO: eta: 1:18:25  iter: 200  time: 0.0965 (0.1182)  data: 0.0260 (0.0333)  loss: 2.2673 (2.6228)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:47,521 Train INFO: eta: 1:17:17  iter: 220  time: 0.0989 (0.1166)  data: 0.0259 (0.0326)  loss: 2.3519 (2.6049)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:49,452 Train INFO: eta: 1:16:08  iter: 240  time: 0.0964 (0.1149)  data: 0.0261 (0.0321)  loss: 2.2791 (2.5823)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:51,406 Train INFO: eta: 1:15:13  iter: 260  time: 0.0974 (0.1136)  data: 0.0259 (0.0316)  loss: 2.2179 (2.5664)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:53,350 Train INFO: eta: 1:14:24  iter: 280  time: 0.0968 (0.1124)  data: 0.0258 (0.0312)  loss: 2.3571 (2.5564)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:55,322 Train INFO: eta: 1:13:45  iter: 300  time: 0.0975 (0.1115)  data: 0.0254 (0.0308)  loss: 2.3680 (2.5391)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:57,271 Train INFO: eta: 1:13:08  iter: 320  time: 0.0964 (0.1106)  data: 0.0255 (0.0305)  loss: 2.1830 (2.5196)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:43:59,238 Train INFO: eta: 1:12:37  iter: 340  time: 0.0977 (0.1099)  data: 0.0246 (0.0302)  loss: 2.2534 (2.5047)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:01,172 Train INFO: eta: 1:12:06  iter: 360  time: 0.0960 (0.1092)  data: 0.0255 (0.0299)  loss: 2.0417 (2.4850)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:03,122 Train INFO: eta: 1:11:40  iter: 380  time: 0.0970 (0.1085)  data: 0.0256 (0.0297)  loss: 2.1036 (2.4660)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:05,079 Train INFO: eta: 1:11:17  iter: 400  time: 0.0970 (0.1080)  data: 0.0253 (0.0295)  loss: 2.1787 (2.4493)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:07,043 Train INFO: eta: 1:10:56  iter: 420  time: 0.0983 (0.1075)  data: 0.0251 (0.0293)  loss: 2.0765 (2.4353)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:09,002 Train INFO: eta: 1:10:36  iter: 440  time: 0.0968 (0.1071)  data: 0.0248 (0.0291)  loss: 2.1964 (2.4238)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:10,932 Train INFO: eta: 1:10:16  iter: 460  time: 0.0955 (0.1066)  data: 0.0257 (0.0289)  loss: 2.0364 (2.4072)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:12,879 Train INFO: eta: 1:09:59  iter: 480  time: 0.0964 (0.1063)  data: 0.0253 (0.0288)  loss: 2.0472 (2.3945)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:14,881 Train INFO: eta: 1:09:47  iter: 500  time: 0.0983 (0.1060)  data: 0.0235 (0.0286)  loss: 2.2298 (2.3867)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:16,817 Train INFO: eta: 1:09:31  iter: 520  time: 0.0962 (0.1057)  data: 0.0242 (0.0284)  loss: 2.1770 (2.3775)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:18,752 Train INFO: eta: 1:09:16  iter: 540  time: 0.0961 (0.1053)  data: 0.0251 (0.0283)  loss: 2.0356 (2.3663)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:20,688 Train INFO: eta: 1:09:01  iter: 560  time: 0.0966 (0.1050)  data: 0.0246 (0.0281)  loss: 2.1022 (2.3594)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:22,629 Train INFO: eta: 1:08:49  iter: 580  time: 0.0966 (0.1047)  data: 0.0247 (0.0280)  loss: 2.1020 (2.3491)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:24,569 Train INFO: eta: 1:08:36  iter: 600  time: 0.0978 (0.1045)  data: 0.0251 (0.0279)  loss: 1.9195 (2.3363)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:26,502 Train INFO: eta: 1:08:24  iter: 620  time: 0.0963 (0.1042)  data: 0.0246 (0.0278)  loss: 2.0720 (2.3286)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:28,447 Train INFO: eta: 1:08:14  iter: 640  time: 0.0973 (0.1040)  data: 0.0245 (0.0277)  loss: 2.0975 (2.3210)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:30,369 Train INFO: eta: 1:08:02  iter: 660  time: 0.0956 (0.1038)  data: 0.0245 (0.0276)  loss: 2.0979 (2.3135)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:32,308 Train INFO: eta: 1:07:52  iter: 680  time: 0.0963 (0.1036)  data: 0.0248 (0.0275)  loss: 1.9546 (2.3085)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:34,208 Train INFO: eta: 1:07:40  iter: 700  time: 0.0944 (0.1033)  data: 0.0241 (0.0275)  loss: 1.9725 (2.2995)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:36,285 Train INFO: eta: 1:07:39  iter: 720  time: 0.0947 (0.1033)  data: 0.0244 (0.0274)  loss: 2.0800 (2.2933)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:38,284 Train INFO: eta: 1:07:33  iter: 740  time: 0.0956 (0.1033)  data: 0.0239 (0.0273)  loss: 1.9892 (2.2858)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:40,198 Train INFO: eta: 1:07:23  iter: 760  time: 0.0957 (0.1031)  data: 0.0239 (0.0272)  loss: 1.9191 (2.2782)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:42,099 Train INFO: eta: 1:07:13  iter: 780  time: 0.0943 (0.1028)  data: 0.0242 (0.0271)  loss: 2.0469 (2.2739)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:43,993 Train INFO: eta: 1:07:03  iter: 800  time: 0.0944 (0.1026)  data: 0.0241 (0.0271)  loss: 1.9255 (2.2673)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:45,910 Train INFO: eta: 1:06:55  iter: 820  time: 0.0949 (0.1025)  data: 0.0240 (0.0270)  loss: 2.1031 (2.2615)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:47,815 Train INFO: eta: 1:06:46  iter: 840  time: 0.0955 (0.1023)  data: 0.0235 (0.0269)  loss: 1.8387 (2.2522)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:49,748 Train INFO: eta: 1:06:39  iter: 860  time: 0.0961 (0.1022)  data: 0.0233 (0.0268)  loss: 2.0839 (2.2484)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:51,657 Train INFO: eta: 1:06:31  iter: 880  time: 0.0953 (0.1020)  data: 0.0232 (0.0267)  loss: 1.9279 (2.2412)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:53,567 Train INFO: eta: 1:06:23  iter: 900  time: 0.0954 (0.1019)  data: 0.0230 (0.0267)  loss: 1.9319 (2.2367)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:55,446 Train INFO: eta: 1:06:14  iter: 920  time: 0.0935 (0.1017)  data: 0.0232 (0.0266)  loss: 2.0006 (2.2318)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:57,369 Train INFO: eta: 1:06:07  iter: 940  time: 0.0959 (0.1016)  data: 0.0230 (0.0265)  loss: 2.0504 (2.2277)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:44:59,271 Train INFO: eta: 1:06:00  iter: 960  time: 0.0944 (0.1015)  data: 0.0228 (0.0264)  loss: 1.8913 (2.2206)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:45:01,170 Train INFO: eta: 1:05:53  iter: 980  time: 0.0946 (0.1013)  data: 0.0227 (0.0264)  loss: 2.0072 (2.2167)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:45:03,025 Train INFO: eta: 1:05:44  iter: 1000  time: 0.0922 (0.1011)  data: 0.0228 (0.0263)  loss: 1.9447 (2.2109)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:45:03,124 Train INFO: Validation
+2025-03-03 15:45:03,130 Train INFO: Begin extract
+2025-03-03 15:45:57,159 Train INFO: Best iteration 1000: {'mean_average_precision_at_r': 0.3373887068944531, 'precision_at_1': 0.6217315130078345, 'precision_at_10': 0.23168490297841396, 'precision_at_100': 0.024227298271131535, 'r_precision': 0.3682716981008773}
+2025-03-03 15:46:00,092 Train INFO: eta: 1:40:46  iter: 1020  time: 0.1393 (0.1551)  data: 0.0206 (0.0793)  loss: 9.2834 (2.3530)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:02,920 Train INFO: eta: 1:40:32  iter: 1040  time: 0.1404 (0.1549)  data: 0.0203 (0.0781)  loss: 15.4202 (2.6381)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:05,709 Train INFO: eta: 1:40:18  iter: 1060  time: 0.1389 (0.1546)  data: 0.0211 (0.0771)  loss: 17.2473 (2.9444)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:08,459 Train INFO: eta: 1:40:03  iter: 1080  time: 0.1371 (0.1542)  data: 0.0214 (0.0760)  loss: 17.4240 (3.2213)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:11,428 Train INFO: eta: 1:39:55  iter: 1100  time: 0.1375 (0.1541)  data: 0.0212 (0.0750)  loss: 19.2911 (3.5033)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:14,215 Train INFO: eta: 1:39:42  iter: 1120  time: 0.1394 (0.1539)  data: 0.0207 (0.0741)  loss: 17.9475 (3.7540)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:17,337 Train INFO: eta: 1:39:41  iter: 1140  time: 0.1398 (0.1539)  data: 0.0205 (0.0734)  loss: 16.3272 (3.9742)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:20,174 Train INFO: eta: 1:39:29  iter: 1160  time: 0.1401 (0.1537)  data: 0.0255 (0.0726)  loss: 14.9266 (4.1561)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:22,951 Train INFO: eta: 1:39:17  iter: 1180  time: 0.1389 (0.1535)  data: 0.0252 (0.0718)  loss: 13.6386 (4.3189)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:25,679 Train INFO: eta: 1:39:02  iter: 1200  time: 0.1360 (0.1532)  data: 0.0253 (0.0710)  loss: 15.1484 (4.4970)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:28,390 Train INFO: eta: 1:38:48  iter: 1220  time: 0.1353 (0.1529)  data: 0.0260 (0.0703)  loss: 14.1634 (4.6602)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:31,154 Train INFO: eta: 1:38:36  iter: 1240  time: 0.1374 (0.1526)  data: 0.0249 (0.0695)  loss: 14.3765 (4.8212)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:33,926 Train INFO: eta: 1:38:24  iter: 1260  time: 0.1369 (0.1524)  data: 0.0254 (0.0688)  loss: 14.6109 (4.9779)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:36,625 Train INFO: eta: 1:38:11  iter: 1280  time: 0.1345 (0.1521)  data: 0.0258 (0.0682)  loss: 14.9223 (5.1379)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:39,321 Train INFO: eta: 1:37:57  iter: 1300  time: 0.1334 (0.1519)  data: 0.0258 (0.0675)  loss: 14.5388 (5.2820)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:42,022 Train INFO: eta: 1:37:44  iter: 1320  time: 0.1350 (0.1516)  data: 0.0252 (0.0669)  loss: 15.1018 (5.4301)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:44,733 Train INFO: eta: 1:37:32  iter: 1340  time: 0.1347 (0.1514)  data: 0.0259 (0.0663)  loss: 13.7216 (5.5542)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:47,460 Train INFO: eta: 1:37:20  iter: 1360  time: 0.1352 (0.1512)  data: 0.0252 (0.0657)  loss: 14.5601 (5.6843)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:50,159 Train INFO: eta: 1:37:08  iter: 1380  time: 0.1329 (0.1509)  data: 0.0263 (0.0651)  loss: 13.4822 (5.8041)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:52,868 Train INFO: eta: 1:36:57  iter: 1400  time: 0.1338 (0.1507)  data: 0.0255 (0.0645)  loss: 13.7372 (5.9205)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:55,575 Train INFO: eta: 1:36:45  iter: 1420  time: 0.1354 (0.1505)  data: 0.0252 (0.0640)  loss: 13.5339 (6.0262)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 15:46:58,276 Train INFO: eta: 1:36:34  iter: 1440  time: 0.1353 (0.1503)  data: 0.0253 (0.0635)  loss: 13.6051 (6.1327)  lr: 0.000100  max mem: 2.8 GB
+nohup: ignoring input
+2025-03-03 16:12:41,209 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 1000
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 16:12:41,727 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 16:12:41,729 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 16:12:41,732 Train INFO: Start training
+2025-03-03 16:12:41,732 Train INFO: >>> use XBM
+2025-03-03 16:12:48,610 Train INFO: eta: 3:48:32  iter: 20  time: 0.0951 (0.3430)  data: 0.0253 (0.1144)  loss: 2.7284 (3.1059)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:12:50,557 Train INFO: eta: 2:26:39  iter: 40  time: 0.0963 (0.2202)  data: 0.0245 (0.0696)  loss: 2.6330 (2.9085)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:12:52,498 Train INFO: eta: 1:59:14  iter: 60  time: 0.0972 (0.1791)  data: 0.0250 (0.0548)  loss: 2.7230 (2.8621)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:12:54,397 Train INFO: eta: 1:45:10  iter: 80  time: 0.0949 (0.1581)  data: 0.0253 (0.0475)  loss: 2.6119 (2.7952)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:12:56,345 Train INFO: eta: 1:37:03  iter: 100  time: 0.0975 (0.1459)  data: 0.0247 (0.0430)  loss: 2.5503 (2.7504)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:12:58,279 Train INFO: eta: 1:31:33  iter: 120  time: 0.0966 (0.1377)  data: 0.0245 (0.0399)  loss: 2.4672 (2.7312)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:00,249 Train INFO: eta: 1:27:46  iter: 140  time: 0.0980 (0.1321)  data: 0.0235 (0.0376)  loss: 2.4307 (2.7029)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:02,186 Train INFO: eta: 1:24:47  iter: 160  time: 0.0964 (0.1277)  data: 0.0241 (0.0359)  loss: 2.3796 (2.6704)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:04,104 Train INFO: eta: 1:22:25  iter: 180  time: 0.0955 (0.1242)  data: 0.0253 (0.0347)  loss: 2.3909 (2.6463)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:06,053 Train INFO: eta: 1:20:35  iter: 200  time: 0.0965 (0.1215)  data: 0.0247 (0.0337)  loss: 2.3153 (2.6227)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:07,936 Train INFO: eta: 1:18:54  iter: 220  time: 0.0941 (0.1190)  data: 0.0252 (0.0330)  loss: 2.2924 (2.5921)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:09,888 Train INFO: eta: 1:17:41  iter: 240  time: 0.0975 (0.1172)  data: 0.0245 (0.0323)  loss: 2.3437 (2.5721)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:11,852 Train INFO: eta: 1:16:41  iter: 260  time: 0.0976 (0.1158)  data: 0.0248 (0.0317)  loss: 2.2410 (2.5499)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:13,802 Train INFO: eta: 1:15:46  iter: 280  time: 0.0970 (0.1145)  data: 0.0248 (0.0312)  loss: 2.1384 (2.5295)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:15,729 Train INFO: eta: 1:14:56  iter: 300  time: 0.0957 (0.1133)  data: 0.0246 (0.0308)  loss: 2.1735 (2.5099)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:17,707 Train INFO: eta: 1:14:18  iter: 320  time: 0.0978 (0.1124)  data: 0.0239 (0.0303)  loss: 2.2839 (2.4973)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:19,636 Train INFO: eta: 1:13:39  iter: 340  time: 0.0963 (0.1114)  data: 0.0242 (0.0300)  loss: 2.1395 (2.4801)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:21,560 Train INFO: eta: 1:13:03  iter: 360  time: 0.0947 (0.1106)  data: 0.0248 (0.0297)  loss: 2.1249 (2.4665)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:23,473 Train INFO: eta: 1:12:30  iter: 380  time: 0.0960 (0.1098)  data: 0.0246 (0.0294)  loss: 2.1551 (2.4557)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:25,373 Train INFO: eta: 1:11:58  iter: 400  time: 0.0941 (0.1091)  data: 0.0246 (0.0292)  loss: 2.0654 (2.4440)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:27,297 Train INFO: eta: 1:11:32  iter: 420  time: 0.0968 (0.1084)  data: 0.0246 (0.0290)  loss: 2.1069 (2.4291)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:29,216 Train INFO: eta: 1:11:07  iter: 440  time: 0.0965 (0.1079)  data: 0.0244 (0.0288)  loss: 2.1927 (2.4192)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:31,131 Train INFO: eta: 1:10:44  iter: 460  time: 0.0952 (0.1073)  data: 0.0246 (0.0286)  loss: 2.3578 (2.4138)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:33,033 Train INFO: eta: 1:10:22  iter: 480  time: 0.0952 (0.1068)  data: 0.0249 (0.0285)  loss: 2.2138 (2.4053)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:34,976 Train INFO: eta: 1:10:04  iter: 500  time: 0.0967 (0.1065)  data: 0.0239 (0.0283)  loss: 2.2180 (2.3973)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:36,937 Train INFO: eta: 1:09:49  iter: 520  time: 0.0963 (0.1061)  data: 0.0238 (0.0281)  loss: 2.0184 (2.3843)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:38,847 Train INFO: eta: 1:09:32  iter: 540  time: 0.0945 (0.1057)  data: 0.0241 (0.0280)  loss: 2.0713 (2.3735)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:40,740 Train INFO: eta: 1:09:14  iter: 560  time: 0.0942 (0.1053)  data: 0.0245 (0.0278)  loss: 2.2297 (2.3677)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:42,642 Train INFO: eta: 1:08:58  iter: 580  time: 0.0947 (0.1050)  data: 0.0243 (0.0277)  loss: 2.1473 (2.3589)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:44,536 Train INFO: eta: 1:08:42  iter: 600  time: 0.0946 (0.1046)  data: 0.0242 (0.0276)  loss: 1.9594 (2.3496)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:46,435 Train INFO: eta: 1:08:28  iter: 620  time: 0.0946 (0.1043)  data: 0.0238 (0.0275)  loss: 2.2458 (2.3434)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:48,382 Train INFO: eta: 1:08:17  iter: 640  time: 0.0963 (0.1041)  data: 0.0228 (0.0274)  loss: 2.0224 (2.3328)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:50,288 Train INFO: eta: 1:08:05  iter: 660  time: 0.0943 (0.1038)  data: 0.0240 (0.0273)  loss: 2.0202 (2.3236)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:52,217 Train INFO: eta: 1:07:54  iter: 680  time: 0.0948 (0.1036)  data: 0.0239 (0.0272)  loss: 1.9991 (2.3161)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:54,125 Train INFO: eta: 1:07:43  iter: 700  time: 0.0942 (0.1034)  data: 0.0236 (0.0271)  loss: 1.9672 (2.3071)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:56,020 Train INFO: eta: 1:07:31  iter: 720  time: 0.0941 (0.1031)  data: 0.0239 (0.0270)  loss: 2.1385 (2.3013)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:57,888 Train INFO: eta: 1:07:19  iter: 740  time: 0.0933 (0.1029)  data: 0.0240 (0.0269)  loss: 1.8792 (2.2906)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:13:59,799 Train INFO: eta: 1:07:09  iter: 760  time: 0.0954 (0.1027)  data: 0.0233 (0.0268)  loss: 2.0732 (2.2827)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:01,697 Train INFO: eta: 1:06:59  iter: 780  time: 0.0947 (0.1025)  data: 0.0231 (0.0267)  loss: 1.9528 (2.2766)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:03,588 Train INFO: eta: 1:06:49  iter: 800  time: 0.0931 (0.1023)  data: 0.0230 (0.0266)  loss: 1.9626 (2.2688)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:05,456 Train INFO: eta: 1:06:39  iter: 820  time: 0.0925 (0.1021)  data: 0.0234 (0.0265)  loss: 1.9138 (2.2609)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:07,484 Train INFO: eta: 1:06:36  iter: 840  time: 0.0944 (0.1021)  data: 0.0228 (0.0266)  loss: 1.9163 (2.2533)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:09,340 Train INFO: eta: 1:06:26  iter: 860  time: 0.0918 (0.1018)  data: 0.0232 (0.0265)  loss: 1.8027 (2.2439)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:11,179 Train INFO: eta: 1:06:15  iter: 880  time: 0.0916 (0.1016)  data: 0.0235 (0.0264)  loss: 2.0204 (2.2393)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:13,044 Train INFO: eta: 1:06:06  iter: 900  time: 0.0933 (0.1014)  data: 0.0231 (0.0263)  loss: 1.9478 (2.2329)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:14,931 Train INFO: eta: 1:05:58  iter: 920  time: 0.0934 (0.1013)  data: 0.0225 (0.0263)  loss: 1.9116 (2.2278)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:16,768 Train INFO: eta: 1:05:48  iter: 940  time: 0.0914 (0.1011)  data: 0.0225 (0.0262)  loss: 1.8682 (2.2199)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:18,616 Train INFO: eta: 1:05:39  iter: 960  time: 0.0925 (0.1009)  data: 0.0226 (0.0261)  loss: 1.8681 (2.2151)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:20,474 Train INFO: eta: 1:05:30  iter: 980  time: 0.0920 (0.1007)  data: 0.0224 (0.0260)  loss: 1.9683 (2.2110)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:22,343 Train INFO: eta: 1:05:23  iter: 1000  time: 0.0923 (0.1006)  data: 0.0216 (0.0259)  loss: 1.7534 (2.2040)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:14:22,453 Train INFO: Validation
+2025-03-03 16:14:22,459 Train INFO: Begin extract
+Traceback (most recent call last):
+  File "tools/train_net.py", line 139, in <module>
+    train(cfg)
+  File "tools/train_net.py", line 108, in train
+    do_train(
+  File "/root/shared-nvme/research-xbm/ret_benchmark/engine/trainer.py", line 84, in do_train
+    ret_metric = ret_metric.get_accuracy(feats, feats, labels, labels, True)
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 143, in get_accuracy
+    return self._get_accuracy(self.curr_function_dict, **kwargs)
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 146, in _get_accuracy
+    return {k: v(**kwargs) for k, v in function_dict.items()}
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 146, in <dictcomp>
+    return {k: v(**kwargs) for k, v in function_dict.items()}
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 103, in calculate_recall_at_1
+    return recall_at_k(knn_labels, query_labels[:, None], label_counts, 1)
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 48, in recall_at_k
+    relevance_mask = get_relevance_mask(knn_labels.shape, gt_labels, embeddings_come_from_same_source, label_counts)
+NameError: name 'embeddings_come_from_same_source' is not defined
+nohup: ignoring input
+2025-03-03 16:17:13,216 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 100
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 16:17:13,754 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 16:17:13,755 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 16:17:13,763 Train INFO: Start training
+2025-03-03 16:17:13,763 Train INFO: >>> use XBM
+2025-03-03 16:17:18,924 Train INFO: eta: 2:51:18  iter: 20  time: 0.0996 (0.2571)  data: 0.0251 (0.0978)  loss: 2.1482 (3.8679)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:17:20,974 Train INFO: eta: 1:59:46  iter: 40  time: 0.1005 (0.1798)  data: 0.0252 (0.0615)  loss: 2.6642 (3.2964)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:17:23,029 Train INFO: eta: 1:42:35  iter: 60  time: 0.1017 (0.1541)  data: 0.0250 (0.0493)  loss: 2.7436 (3.1425)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:17:25,056 Train INFO: eta: 1:33:45  iter: 80  time: 0.0996 (0.1409)  data: 0.0253 (0.0432)  loss: 2.5959 (3.0261)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:17:27,092 Train INFO: eta: 1:28:31  iter: 100  time: 0.1017 (0.1331)  data: 0.0260 (0.0397)  loss: 2.6156 (2.9474)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:17:27,103 Train INFO: Validation
+2025-03-03 16:17:27,112 Train INFO: Begin extract
+Traceback (most recent call last):
+  File "tools/train_net.py", line 139, in <module>
+    train(cfg)
+  File "tools/train_net.py", line 108, in train
+    do_train(
+  File "/root/shared-nvme/research-xbm/ret_benchmark/engine/trainer.py", line 84, in do_train
+    ret_metric = ret_metric.get_accuracy(feats, feats, labels, labels, True)
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 143, in get_accuracy
+    return self._get_accuracy(self.curr_function_dict, **kwargs)
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 146, in _get_accuracy
+    return {k: v(**kwargs) for k, v in function_dict.items()}
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 146, in <dictcomp>
+    return {k: v(**kwargs) for k, v in function_dict.items()}
+  File "/root/shared-nvme/research-xbm/ret_benchmark/data/evaluations/eval.py", line 103, in calculate_recall_at_1
+    return recall_at_k(knn_labels, query_labels[:, None], label_counts, 1)
+TypeError: recall_at_k() missing 1 required positional argument: 'k'
+nohup: ignoring input
+2025-03-03 16:19:58,911 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 100
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 16:19:59,392 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 16:19:59,393 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 16:19:59,396 Train INFO: Start training
+2025-03-03 16:19:59,396 Train INFO: >>> use XBM
+2025-03-03 16:20:05,016 Train INFO: eta: 3:06:37  iter: 20  time: 0.0942 (0.2801)  data: 0.0259 (0.1020)  loss: 2.0832 (3.8187)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:20:06,974 Train INFO: eta: 2:05:50  iter: 40  time: 0.0967 (0.1890)  data: 0.0257 (0.0639)  loss: 2.8234 (3.3587)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:20:08,944 Train INFO: eta: 1:45:44  iter: 60  time: 0.0972 (0.1589)  data: 0.0262 (0.0514)  loss: 2.7763 (3.1868)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:20:10,928 Train INFO: eta: 1:35:44  iter: 80  time: 0.0983 (0.1439)  data: 0.0260 (0.0451)  loss: 2.8159 (3.0772)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:20:12,935 Train INFO: eta: 1:29:54  iter: 100  time: 0.0984 (0.1352)  data: 0.0262 (0.0414)  loss: 2.5115 (2.9792)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:20:12,945 Train INFO: Validation
+2025-03-03 16:20:12,951 Train INFO: Begin extract
+2025-03-03 16:21:12,929 Train INFO: Best iteration 100: {'mean_average_precision_at_r': 0.19936390316289745, 'precision_at_1': 0.4519354732074973, 'r_precision': 0.2244818221934681, 'recall_at_1': 0.10855897254156817, 'recall_at_10': 0.26525736475242273, 'recall_at_100': 0.2758140882657427}
+2025-03-03 16:21:14,932 Train INFO: eta: 6:58:17  iter: 120  time: 0.0987 (0.6293)  data: 0.0258 (0.5387)  loss: 2.6291 (2.9200)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:21:16,876 Train INFO: eta: 6:07:34  iter: 140  time: 0.0970 (0.5533)  data: 0.0250 (0.4654)  loss: 2.5411 (2.8741)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:21:18,825 Train INFO: eta: 5:29:33  iter: 160  time: 0.0974 (0.4963)  data: 0.0246 (0.4103)  loss: 2.5865 (2.8453)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:21:20,778 Train INFO: eta: 4:59:59  iter: 180  time: 0.0978 (0.4520)  data: 0.0249 (0.3674)  loss: 2.4169 (2.8003)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:21:22,734 Train INFO: eta: 4:36:20  iter: 200  time: 0.0968 (0.4166)  data: 0.0247 (0.3332)  loss: 2.5704 (2.7759)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:21:22,744 Train INFO: Validation
+2025-03-03 16:21:22,750 Train INFO: Begin extract
+2025-03-03 16:22:22,921 Train INFO: Best iteration 200: {'mean_average_precision_at_r': 0.2314072896414234, 'precision_at_1': 0.4968100228091633, 'r_precision': 0.25982347285527346, 'recall_at_1': 0.1187589990823768, 'recall_at_10': 0.30582547615207695, 'recall_at_100': 0.31828394770487595}
+2025-03-03 16:22:24,965 Train INFO: eta: 7:18:38  iter: 220  time: 0.1009 (0.6616)  data: 0.0239 (0.5786)  loss: 2.4120 (2.7376)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:22:27,097 Train INFO: eta: 6:47:46  iter: 240  time: 0.1034 (0.6154)  data: 0.0230 (0.5323)  loss: 2.3519 (2.7140)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:22:29,124 Train INFO: eta: 6:21:22  iter: 260  time: 0.1004 (0.5758)  data: 0.0241 (0.4932)  loss: 2.3877 (2.6968)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:22:31,137 Train INFO: eta: 5:58:43  iter: 280  time: 0.0993 (0.5419)  data: 0.0239 (0.4597)  loss: 2.2093 (2.6695)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:22:33,154 Train INFO: eta: 5:39:05  iter: 300  time: 0.0995 (0.5125)  data: 0.0230 (0.4305)  loss: 2.3146 (2.6494)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:22:33,163 Train INFO: Validation
+2025-03-03 16:22:33,170 Train INFO: Begin extract
+2025-03-03 16:23:36,595 Train INFO: Best iteration 300: {'mean_average_precision_at_r': 0.2620325896440262, 'precision_at_1': 0.5373706654325476, 'r_precision': 0.29183713495595753, 'recall_at_1': 0.12852873562478204, 'recall_at_10': 0.34158470212402314, 'recall_at_100': 0.3548669130373041}
+2025-03-03 16:23:38,787 Train INFO: eta: 7:33:22  iter: 320  time: 0.1002 (0.6855)  data: 0.0229 (0.6033)  loss: 2.2895 (2.6255)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:23:40,782 Train INFO: eta: 7:10:22  iter: 340  time: 0.0991 (0.6511)  data: 0.0232 (0.5692)  loss: 2.1769 (2.6023)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:23:42,756 Train INFO: eta: 6:49:52  iter: 360  time: 0.0986 (0.6204)  data: 0.0244 (0.5390)  loss: 2.3655 (2.5912)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:23:44,757 Train INFO: eta: 6:31:34  iter: 380  time: 0.0989 (0.5930)  data: 0.0249 (0.5119)  loss: 2.3721 (2.5755)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:23:46,694 Train INFO: eta: 6:15:00  iter: 400  time: 0.0962 (0.5682)  data: 0.0251 (0.4876)  loss: 2.0781 (2.5555)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:23:46,703 Train INFO: Validation
+2025-03-03 16:23:46,709 Train INFO: Begin extract
+2025-03-03 16:24:50,986 Train INFO: Best iteration 400: {'mean_average_precision_at_r': 0.2753648504203123, 'precision_at_1': 0.553204852732141, 'r_precision': 0.3058008958524644, 'recall_at_1': 0.1318922268105766, 'recall_at_10': 0.3565503469457058, 'recall_at_100': 0.3708057603953607}
+2025-03-03 16:24:52,987 Train INFO: eta: 7:41:05  iter: 420  time: 0.0989 (0.6990)  data: 0.0252 (0.6186)  loss: 2.3223 (2.5439)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:24:54,974 Train INFO: eta: 7:22:53  iter: 440  time: 0.0986 (0.6717)  data: 0.0244 (0.5916)  loss: 2.0902 (2.5250)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:24:56,969 Train INFO: eta: 7:06:16  iter: 460  time: 0.0992 (0.6469)  data: 0.0241 (0.5670)  loss: 2.1256 (2.5090)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:24:58,958 Train INFO: eta: 6:51:02  iter: 480  time: 0.0994 (0.6241)  data: 0.0235 (0.5443)  loss: 2.1194 (2.4967)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:25:00,954 Train INFO: eta: 6:37:01  iter: 500  time: 0.0987 (0.6031)  data: 0.0232 (0.5235)  loss: 2.1241 (2.4850)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:25:00,962 Train INFO: Validation
+2025-03-03 16:25:00,967 Train INFO: Begin extract
+2025-03-03 16:26:07,926 Train INFO: Best iteration 500: {'mean_average_precision_at_r': 0.2903201609432989, 'precision_at_1': 0.5715678820534859, 'r_precision': 0.3210597566259362, 'recall_at_1': 0.13613049796977603, 'recall_at_10': 0.3727226844921301, 'recall_at_100': 0.38724468483815283}
+2025-03-03 16:26:09,964 Train INFO: eta: 7:48:53  iter: 520  time: 0.1006 (0.7126)  data: 0.0234 (0.6331)  loss: 2.2821 (2.4768)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:26:11,934 Train INFO: eta: 7:33:41  iter: 540  time: 0.0969 (0.6898)  data: 0.0235 (0.6105)  loss: 2.2712 (2.4661)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:26:13,876 Train INFO: eta: 7:19:32  iter: 560  time: 0.0959 (0.6687)  data: 0.0242 (0.5895)  loss: 2.2030 (2.4564)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:26:15,916 Train INFO: eta: 7:06:29  iter: 580  time: 0.1010 (0.6491)  data: 0.0227 (0.5700)  loss: 2.1778 (2.4507)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:26:17,895 Train INFO: eta: 6:54:13  iter: 600  time: 0.0994 (0.6308)  data: 0.0243 (0.5518)  loss: 1.8693 (2.4360)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:26:17,903 Train INFO: Validation
+2025-03-03 16:26:17,910 Train INFO: Begin extract
+nohup: ignoring input
+2025-03-03 16:34:31,063 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 100
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 16:34:31,615 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 16:34:31,616 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 16:34:31,619 Train INFO: Start training
+2025-03-03 16:34:31,619 Train INFO: >>> use XBM
+2025-03-03 16:34:38,773 Train INFO: eta: 3:57:44  iter: 20  time: 0.0982 (0.3568)  data: 0.0258 (0.1078)  loss: 2.2123 (3.1738)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:34:40,763 Train INFO: eta: 2:31:54  iter: 40  time: 0.0981 (0.2281)  data: 0.0255 (0.0667)  loss: 3.0723 (3.0983)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:34:42,755 Train INFO: eta: 2:03:20  iter: 60  time: 0.0986 (0.1853)  data: 0.0256 (0.0530)  loss: 2.5596 (2.9631)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:34:44,773 Train INFO: eta: 1:49:14  iter: 80  time: 0.0997 (0.1642)  data: 0.0256 (0.0461)  loss: 2.7316 (2.9030)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:34:46,763 Train INFO: eta: 1:40:34  iter: 100  time: 0.0987 (0.1512)  data: 0.0252 (0.0419)  loss: 2.5553 (2.8471)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:34:46,772 Train INFO: Validation
+2025-03-03 16:34:46,777 Train INFO: Begin extract
+2025-03-03 16:35:39,489 Train INFO: Best iteration 100: {'mean_average_precision_at_r': 0.20791631493189305, 'precision_at_1': 0.4675547915771379, 'r_precision': 0.23376069747470693, 'recall_at_1': 0.4675547915771379, 'recall_at_10': 1.4217215959802982, 'recall_at_100': 1.4859012925192556}
+2025-03-03 16:35:41,544 Train INFO: eta: 6:27:12  iter: 120  time: 0.1026 (0.5826)  data: 0.0253 (0.4785)  loss: 2.6241 (2.8067)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:35:43,560 Train INFO: eta: 5:41:17  iter: 140  time: 0.1003 (0.5137)  data: 0.0243 (0.4136)  loss: 2.4089 (2.7519)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:35:45,579 Train INFO: eta: 5:06:51  iter: 160  time: 0.1008 (0.4621)  data: 0.0256 (0.3651)  loss: 2.4091 (2.7273)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:35:47,589 Train INFO: eta: 4:40:02  iter: 180  time: 0.0999 (0.4220)  data: 0.0241 (0.3272)  loss: 2.3259 (2.6998)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:35:49,625 Train INFO: eta: 4:18:39  iter: 200  time: 0.1005 (0.3899)  data: 0.0241 (0.2969)  loss: 2.3693 (2.6780)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:35:49,635 Train INFO: Validation
+2025-03-03 16:35:49,641 Train INFO: Begin extract
+2025-03-03 16:36:42,962 Train INFO: Best iteration 200: {'mean_average_precision_at_r': 0.23844234887637364, 'precision_at_1': 0.5094872896763744, 'r_precision': 0.26727821550554687, 'recall_at_1': 0.5094872896763744, 'recall_at_10': 1.6498793428316418, 'recall_at_100': 1.726058642689498}
+2025-03-03 16:36:44,934 Train INFO: eta: 6:41:42  iter: 220  time: 0.0974 (0.6059)  data: 0.0254 (0.5146)  loss: 2.2927 (2.6498)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:36:46,928 Train INFO: eta: 6:13:33  iter: 240  time: 0.0978 (0.5637)  data: 0.0250 (0.4738)  loss: 2.4263 (2.6344)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:36:48,977 Train INFO: eta: 5:49:51  iter: 260  time: 0.1029 (0.5282)  data: 0.0255 (0.4393)  loss: 2.2631 (2.6105)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:36:51,024 Train INFO: eta: 5:29:32  iter: 280  time: 0.1002 (0.4978)  data: 0.0258 (0.4098)  loss: 2.3047 (2.5960)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:36:53,039 Train INFO: eta: 5:11:51  iter: 300  time: 0.1001 (0.4713)  data: 0.0251 (0.3841)  loss: 2.1201 (2.5772)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:36:53,046 Train INFO: Validation
+2025-03-03 16:36:53,050 Train INFO: Begin extract
+2025-03-03 16:37:52,302 Train INFO: Best iteration 300: {'mean_average_precision_at_r': 0.26034931581131016, 'precision_at_1': 0.5381805560146772, 'r_precision': 0.2901478797428518, 'recall_at_1': 0.5381805560146772, 'recall_at_10': 1.8040230075038841, 'recall_at_100': 1.8880698158738554}
+2025-03-03 16:37:54,291 Train INFO: eta: 6:58:48  iter: 320  time: 0.0989 (0.6333)  data: 0.0260 (0.5469)  loss: 2.3367 (2.5606)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:37:56,237 Train INFO: eta: 6:37:45  iter: 340  time: 0.0976 (0.6018)  data: 0.0252 (0.5163)  loss: 2.3291 (2.5468)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:37:58,204 Train INFO: eta: 6:19:05  iter: 360  time: 0.0986 (0.5738)  data: 0.0252 (0.4890)  loss: 2.2091 (2.5289)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:38:00,172 Train INFO: eta: 6:02:22  iter: 380  time: 0.0977 (0.5488)  data: 0.0250 (0.4646)  loss: 2.2090 (2.5165)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:38:02,132 Train INFO: eta: 5:47:18  iter: 400  time: 0.0973 (0.5262)  data: 0.0251 (0.4426)  loss: 2.1977 (2.5018)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 16:38:02,142 Train INFO: Validation
+2025-03-03 16:38:02,151 Train INFO: Begin extract
+nohup: ignoring input
+2025-03-03 17:25:57,460 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 100
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 17:25:58,042 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 17:25:58,044 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 17:25:58,047 Train INFO: Start training
+2025-03-03 17:25:58,047 Train INFO: >>> use XBM
+2025-03-03 17:26:03,552 Train INFO: eta: 3:02:47  iter: 20  time: 0.0963 (0.2743)  data: 0.0248 (0.1047)  loss: 2.3117 (5.5452)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:26:05,507 Train INFO: eta: 2:03:54  iter: 40  time: 0.0980 (0.1860)  data: 0.0250 (0.0647)  loss: 2.2290 (3.9831)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:26:07,522 Train INFO: eta: 1:44:54  iter: 60  time: 0.1007 (0.1576)  data: 0.0249 (0.0515)  loss: 2.8899 (3.6365)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:26:09,470 Train INFO: eta: 1:34:50  iter: 80  time: 0.0975 (0.1426)  data: 0.0258 (0.0451)  loss: 2.6352 (3.4147)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:26:11,445 Train INFO: eta: 1:28:58  iter: 100  time: 0.0981 (0.1338)  data: 0.0255 (0.0412)  loss: 2.7871 (3.3010)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:26:11,454 Train INFO: Validation
+2025-03-03 17:26:11,459 Train INFO: Begin extract
+2025-03-03 17:27:05,502 Train INFO: Best iteration 100: {'mean_average_precision_at_r': 0.19168083249905524, 'precision_at_1': 0.44015073881855143, 'r_precision': 0.21604135908497746, 'recall_at_1': 0.44015073881855143, 'recall_at_10': 0.6068394433241876, 'recall_at_100': 0.6193348980199002}
+2025-03-03 17:27:07,498 Train INFO: eta: 6:24:34  iter: 120  time: 0.0994 (0.5786)  data: 0.0253 (0.4890)  loss: 2.5299 (3.1855)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:27:09,446 Train INFO: eta: 5:38:43  iter: 140  time: 0.0979 (0.5099)  data: 0.0250 (0.4228)  loss: 2.5114 (3.1040)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:27:11,462 Train INFO: eta: 5:04:35  iter: 160  time: 0.0992 (0.4587)  data: 0.0254 (0.3731)  loss: 2.5850 (3.0418)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:27:13,427 Train INFO: eta: 4:37:50  iter: 180  time: 0.0981 (0.4186)  data: 0.0245 (0.3344)  loss: 2.6479 (2.9921)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:27:15,405 Train INFO: eta: 4:16:30  iter: 200  time: 0.0974 (0.3867)  data: 0.0244 (0.3034)  loss: 2.3852 (2.9372)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:27:15,413 Train INFO: Validation
+2025-03-03 17:27:15,420 Train INFO: Begin extract
+2025-03-03 17:28:12,840 Train INFO: Best iteration 200: {'mean_average_precision_at_r': 0.22501167002467726, 'precision_at_1': 0.49104161845889394, 'r_precision': 0.25257922793913334, 'recall_at_1': 0.49104161845889394, 'recall_at_10': 0.6625566096988529, 'recall_at_100': 0.6745396846385243}
+2025-03-03 17:28:14,885 Train INFO: eta: 6:52:19  iter: 220  time: 0.1013 (0.6219)  data: 0.0245 (0.5391)  loss: 2.4421 (2.8992)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:28:16,878 Train INFO: eta: 6:23:16  iter: 240  time: 0.0988 (0.5784)  data: 0.0257 (0.4963)  loss: 2.3889 (2.8615)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:28:18,892 Train INFO: eta: 5:58:45  iter: 260  time: 0.0995 (0.5417)  data: 0.0240 (0.4600)  loss: 2.4358 (2.8271)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:28:20,921 Train INFO: eta: 5:37:45  iter: 280  time: 0.1004 (0.5102)  data: 0.0238 (0.4288)  loss: 2.3200 (2.8004)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:28:22,947 Train INFO: eta: 5:19:33  iter: 300  time: 0.1010 (0.4830)  data: 0.0241 (0.4019)  loss: 2.3387 (2.7744)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:28:22,960 Train INFO: Validation
+2025-03-03 17:28:22,967 Train INFO: Begin extract
+nohup: ignoring input
+2025-03-03 17:56:32,941 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 100
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 17:56:33,478 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 17:56:33,479 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 17:56:33,482 Train INFO: Start training
+2025-03-03 17:56:33,482 Train INFO: >>> use XBM
+2025-03-03 17:56:40,148 Train INFO: eta: 3:41:32  iter: 20  time: 0.0970 (0.3325)  data: 0.0261 (0.1106)  loss: 2.0709 (3.0177)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:56:42,217 Train INFO: eta: 2:25:09  iter: 40  time: 0.1032 (0.2180)  data: 0.0254 (0.0678)  loss: 2.9459 (3.0821)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:56:44,256 Train INFO: eta: 1:59:19  iter: 60  time: 0.1005 (0.1793)  data: 0.0251 (0.0535)  loss: 2.6036 (2.9441)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:56:46,276 Train INFO: eta: 1:46:14  iter: 80  time: 0.0991 (0.1597)  data: 0.0239 (0.0463)  loss: 2.4258 (2.8748)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:56:48,282 Train INFO: eta: 1:38:18  iter: 100  time: 0.1005 (0.1478)  data: 0.0240 (0.0420)  loss: 2.4997 (2.8376)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:56:48,291 Train INFO: Validation
+2025-03-03 17:56:48,297 Train INFO: Begin extract
+Traceback (most recent call last):
+  File "tools/train_net.py", line 139, in <module>
+    train(cfg)
+  File "tools/train_net.py", line 108, in train
+    do_train(
+  File "/root/shared-nvme/research-xbm/ret_benchmark/engine/trainer.py", line 89, in do_train
+    scheduler.step(log_info[f"e_precision_at_1"])
+KeyError: 'e_precision_at_1'
+nohup: ignoring input
+2025-03-03 17:58:06,211 Train INFO: DATA:
+  NUM_INSTANCES: 4
+  NUM_WORKERS: 16
+  PKUVID_IMG_SOURCE: 
+  QUERY_IMG_SOURCE: 
+  SAMPLE: RandomIdentitySampler
+  TEST_BATCHSIZE: 256
+  TEST_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_test.txt
+  TRAIN_BATCHSIZE: 64
+  TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
+INPUT:
+  CROP_SCALE: [0.2, 1]
+  CROP_SIZE: [224, 224]
+  FLIP_PROB: 0.5
+  MODE: RGB
+  ORIGIN_SIZE: [256, 256]
+  PIXEL_MEAN: [0.485, 0.456, 0.406]
+  PIXEL_STD: [0.229, 0.224, 0.225]
+LOGGER:
+  LEVEL: 20
+  STREAM: stdout
+LOSSES:
+  MULTI_SIMILARITY_LOSS:
+    HARD_MINING: True
+    SCALE_NEG: 40.0
+    SCALE_POS: 2.0
+  NAME: contrastive_loss
+MODEL:
+  BACKBONE:
+    LAST_STRIDE: 2
+    NAME: resnet50
+  DEVICE: cuda
+  HEAD:
+    DIM: 64
+    IN_CHANNELS: 2048
+    NAME: linear_norm
+    NUM_CLASSES: 1000
+  PRETRAIN: imagenet
+  PRETRIANED_PATH:
+    bninception: ~/.torch/models/bn_inception-52deb4733.pth
+    googlenet: ~/.torch/models/googlenet-1378be20.pth
+    resnet50: ~/.torch/models/pytorch_resnet50.pth
+  WEIGHT: 
+NAME: dim64
+SAVE: True
+SAVE_DIR: /root/shared-nvme/dim
+SOLVER:
+  BASE_LR: 0.0001
+  BIAS_LR_FACTOR: 1
+  CHECKPOINT_PERIOD: 1000
+  FINETURN_MODE_PATH: 
+  FIX_BN: False
+  GAMMA: 0.1
+  IS_FINETURN: False
+  MAX_ITERS: 40000
+  MOMENTUM: 0.9
+  OPTIMIZER_NAME: Adam
+  RNG_SEED: 1
+  STEPS: 2
+  WEIGHT_DECAY: 0.0005
+  WEIGHT_DECAY_BIAS: 0.0005
+TB_SAVE_DIR: runs
+VALIDATION:
+  IS_VALIDATION: True
+  R: [1]
+  VERBOSE: 100
+XBM:
+  ENABLE: True
+  SIZE: 55000
+  START_ITERATION: 1000
+  WEIGHT: 1.0
+2025-03-03 17:58:06,770 Train INFO: | Dataset Info |datasize: 59551|num_labels: 11318|
+2025-03-03 17:58:06,771 Train INFO: | Dataset Info |datasize: 60502|num_labels: 11316|
+2025-03-03 17:58:06,774 Train INFO: Start training
+2025-03-03 17:58:06,774 Train INFO: >>> use XBM
+2025-03-03 17:58:13,565 Train INFO: eta: 3:45:33  iter: 20  time: 0.0966 (0.3385)  data: 0.0258 (0.1098)  loss: 2.0061 (4.3910)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:58:15,523 Train INFO: eta: 2:25:23  iter: 40  time: 0.0973 (0.2183)  data: 0.0257 (0.0677)  loss: 2.3166 (3.4954)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:58:17,482 Train INFO: eta: 1:58:35  iter: 60  time: 0.0976 (0.1781)  data: 0.0250 (0.0535)  loss: 2.7459 (3.2810)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:58:19,445 Train INFO: eta: 1:45:12  iter: 80  time: 0.0972 (0.1581)  data: 0.0254 (0.0465)  loss: 2.6928 (3.1367)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:58:21,424 Train INFO: eta: 1:37:18  iter: 100  time: 0.0981 (0.1463)  data: 0.0256 (0.0423)  loss: 2.6903 (3.0509)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:58:21,433 Train INFO: Validation
+2025-03-03 17:58:21,439 Train INFO: Begin extract
+2025-03-03 17:59:15,293 Train INFO: Best iteration 100: {'mean_average_precision_at_r': 0.19851743845205633, 'recall_at_1': 0.45143962183068326, 'recall_at_10': 0.6218802684208786, 'recall_at_100': 0.6341277974281841}
+2025-03-03 17:59:17,383 Train INFO: eta: 6:30:59  iter: 120  time: 0.1023 (0.5883)  data: 0.0251 (0.4883)  loss: 2.6862 (2.9915)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:59:19,433 Train INFO: eta: 5:44:41  iter: 140  time: 0.1015 (0.5189)  data: 0.0250 (0.4221)  loss: 2.5390 (2.9379)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:59:21,464 Train INFO: eta: 5:09:53  iter: 160  time: 0.1005 (0.4667)  data: 0.0252 (0.3725)  loss: 2.4468 (2.8826)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:59:23,493 Train INFO: eta: 4:42:47  iter: 180  time: 0.1008 (0.4261)  data: 0.0247 (0.3338)  loss: 2.7156 (2.8538)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:59:25,506 Train INFO: eta: 4:21:04  iter: 200  time: 0.1006 (0.3936)  data: 0.0241 (0.3029)  loss: 2.4195 (2.8134)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 17:59:25,515 Train INFO: Validation
+2025-03-03 17:59:25,522 Train INFO: Begin extract
+2025-03-03 18:00:18,117 Train INFO: Best iteration 200: {'mean_average_precision_at_r': 0.22732078043954368, 'recall_at_1': 0.49401672671977787, 'recall_at_10': 0.6676473505008099, 'recall_at_100': 0.6794816700274371}
+2025-03-03 18:00:20,116 Train INFO: eta: 6:41:47  iter: 220  time: 0.0995 (0.6060)  data: 0.0249 (0.5168)  loss: 2.5463 (2.7919)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:00:22,098 Train INFO: eta: 6:13:35  iter: 240  time: 0.0982 (0.5638)  data: 0.0253 (0.4758)  loss: 2.3531 (2.7599)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:00:24,084 Train INFO: eta: 5:49:44  iter: 260  time: 0.0982 (0.5280)  data: 0.0256 (0.4412)  loss: 2.5162 (2.7435)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:00:26,080 Train INFO: eta: 5:29:18  iter: 280  time: 0.0994 (0.4975)  data: 0.0250 (0.4114)  loss: 2.3478 (2.7143)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:00:28,057 Train INFO: eta: 5:11:33  iter: 300  time: 0.0978 (0.4709)  data: 0.0247 (0.3857)  loss: 2.2981 (2.6885)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:00:28,065 Train INFO: Validation
+2025-03-03 18:00:28,070 Train INFO: Begin extract
+2025-03-03 18:01:19,879 Train INFO: Best iteration 300: {'mean_average_precision_at_r': 0.25455030490532005, 'recall_at_1': 0.527222240587088, 'recall_at_10': 0.6989686291362269, 'recall_at_100': 0.7114475554527123}
+2025-03-03 18:01:21,897 Train INFO: eta: 6:43:12  iter: 320  time: 0.1003 (0.6097)  data: 0.0246 (0.5250)  loss: 2.2969 (2.6669)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:01:23,887 Train INFO: eta: 6:23:10  iter: 340  time: 0.0989 (0.5797)  data: 0.0243 (0.4956)  loss: 2.3406 (2.6496)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:01:25,882 Train INFO: eta: 6:05:21  iter: 360  time: 0.0996 (0.5530)  data: 0.0242 (0.4694)  loss: 2.2293 (2.6272)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:01:27,889 Train INFO: eta: 5:49:26  iter: 380  time: 0.0997 (0.5292)  data: 0.0248 (0.4460)  loss: 2.3311 (2.6113)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:01:29,869 Train INFO: eta: 5:35:04  iter: 400  time: 0.0989 (0.5077)  data: 0.0242 (0.4249)  loss: 2.1038 (2.5914)  lr: 0.000100  max mem: 2.8 GB
+2025-03-03 18:01:29,877 Train INFO: Validation
+2025-03-03 18:01:29,884 Train INFO: Begin extract

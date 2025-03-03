@@ -44,6 +44,11 @@ def precision_at_k(knn_labels, gt_labels, k):
     precision = np.mean(np.sum(curr_knn_labels == gt_labels, axis=1) / k)
     return precision
 
+def recall_at_k(knn_labels, gt_labels, k):
+    curr_knn_labels = knn_labels[:, :k]
+    recall = np.mean(np.sum(curr_knn_labels == gt_labels, axis=1) > 0)
+    return recall
+
 
 def get_label_counts(reference_labels):
     unique_labels, label_counts = np.unique(reference_labels, return_counts=True)
@@ -91,6 +96,16 @@ class AccuracyCalculator:
         # query_labels: 1 x N
         # query_labels[:, None]: N x 1
         return precision_at_k(knn_labels, query_labels[:, None], 1)
+
+    def calculate_recall_at_1(self, knn_labels, query_labels, **kwargs):
+        return recall_at_k(knn_labels, query_labels[:, None], 1)
+
+    def calculate_recall_at_10(self, knn_labels, query_labels, **kwargs):
+        return recall_at_k(knn_labels, query_labels[:, None], 10)
+
+    def calculate_recall_at_100(self, knn_labels, query_labels, **kwargs):
+        return recall_at_k(knn_labels, query_labels[:, None], 100)
+
 
     def calculate_mean_average_precision_at_r(self, knn_labels, query_labels, embeddings_come_from_same_source=False,
                                               label_counts=None, **kwargs):

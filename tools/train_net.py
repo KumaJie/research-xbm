@@ -53,7 +53,7 @@ class MyNet(torch.nn.Module):
         super(MyNet, self).__init__()
         self.backbone = models.mobilenet_v3_large(weights='IMAGENET1K_V2').features
         self.fc = nn.Linear(960, num_classes)
-        torch.nn.init.xavier_normal_(self.fc.weights)
+        torch.nn.init.xavier_normal_(self.fc.weight)
         torch.nn.init.constant_(self.fc.bias, 0.0)
 
 

@@ -1,1 +1,1 @@
-python -u tools/train_net.py --cfg configs/config.yaml >> test.log 2>&1 &
+python -u tools/train_net.py --cfg configs/dim/mobilenet_512.yaml >> /root/shared-nvme/dim/dim512/log 2>&1 &
