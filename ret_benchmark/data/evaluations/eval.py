@@ -30,6 +30,7 @@ def mean_average_precision_at_r(knn_labels, gt_labels, embeddings_come_from_same
     equality = (knn_labels == gt_labels) * relevance_mask.astype(bool)
     cumulative_correct = np.cumsum(equality, axis=1)
     k_idx = np.tile(np.arange(1, num_k + 1), (num_samples, 1))
+    # 前 r 个样本中正样本的 precision，r表示所有所有正样本的数量
     precision_at_ks = (cumulative_correct * equality) / k_idx
     summed_precision_per_row = np.sum(precision_at_ks * relevance_mask, axis=1)
     max_possible_matches_per_row = np.sum(relevance_mask, axis=1)
@@ -37,6 +38,8 @@ def mean_average_precision_at_r(knn_labels, gt_labels, embeddings_come_from_same
 
 
 def precision_at_k(knn_labels, gt_labels, k):
+    # knn_lables: N x k
+    # gt_labels: N x 1
     curr_knn_labels = knn_labels[:, :k]
     precision = np.mean(np.sum(curr_knn_labels == gt_labels, axis=1) / k)
     return precision
@@ -85,6 +88,8 @@ class AccuracyCalculator:
         return adjusted_mutual_info_score(query_labels, cluster_labels)
 
     def calculate_precision_at_1(self, knn_labels, query_labels, **kwargs):
+        # query_labels: 1 x N
+        # query_labels[:, None]: N x 1
         return precision_at_k(knn_labels, query_labels[:, None], 1)
 
     def calculate_mean_average_precision_at_r(self, knn_labels, query_labels, embeddings_come_from_same_source=False,
