@@ -12,6 +12,7 @@ import numpy as np
 import torch
 
 from ret_benchmark.data.evaluations.eval import AccuracyCalculator
+from ret_benchmark.data.evaluations.ret_metric import RetMetric
 from ret_benchmark.utils.feat_extractor import feat_extractor
 from ret_benchmark.utils.metric_logger import MetricLogger
 from ret_benchmark.utils.log_info import log_info
@@ -77,16 +78,16 @@ def do_train(
             labels = np.array(labels)
             # 提取测试集的所有特征
             feats = feat_extractor(model, val_loader[0], logger=logger)
-            # ret_metric = AccuracyCalculator(include=("precision_at_1", "mean_average_precision_at_r", "r_precision"), exclude=())
+            ret_metric = AccuracyCalculator(include=("precision_at_1", "mean_average_precision_at_r", "r_precision"), exclude=())
             # 计算 R@1 R@10 R@100
-            ret_metric = AccuracyCalculator(include=("recall_at_1", "recall_at_10", "recall_at_100", "mean_average_precision_at_r"), exclude=())
+            # ret_metric = AccuracyCalculator(include=("recall_at_1", "recall_at_10", "recall_at_100", "mean_average_precision_at_r"), exclude=())
 
             ret_metric = ret_metric.get_accuracy(feats, feats, labels, labels, True)
             mapr_curr = ret_metric['mean_average_precision_at_r']
             for k, v in ret_metric.items():
                 log_info[f"e_{k}"] = v
 
-            scheduler.step(log_info[f"e_recall_at_1"])
+            scheduler.step(log_info[f"e_precision_at_1"])
             log_info["lr"] = optimizer.param_groups[0]["lr"]
             if mapr_curr > best_mapr:
                 best_mapr = mapr_curr
@@ -167,3 +168,27 @@ def do_train(
 
     logger.info(f"Best iteration: {best_iteration :06d} | best MAP@R {best_mapr} ")
     writer.close()
+
+def do_test(
+    cfg,
+    model,
+    val_loader,
+    logger,
+):
+    logger.info("Start testing")
+    model.eval()
+    logger.info("Validation")
+    # 获取测试集的标签
+    labels = val_loader[0].dataset.label_list
+    labels = np.array(labels)
+    # 提取测试集的所有特征
+    feats = feat_extractor(model, val_loader[0], logger=logger)
+    print(feats.shape, labels.shape)
+    # ret_metric = AccuracyCalculator(include=("precision_at_1", "mean_average_precision_at_r", "r_precision"), exclude=())
+    # # 计算 R@1 R@10 R@100
+    # ret_metric = AccuracyCalculator(include=("recall_at_1", "recall_at_10", "recall_at_100",  "recall_at_1000", "mean_average_precision_at_r"), exclude=())
+    # ret_metric = ret_metric.get_accuracy(feats, feats, labels, labels, True)
+    # logger.info(f"Performance : {ret_metric}")
+    ret = RetMetric(feats, labels)
+    print(ret.recall_k(1), ret.recall_k(10),ret.recall_k(100),ret.recall_k(1000),)
+            

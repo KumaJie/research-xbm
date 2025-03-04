@@ -106,7 +106,6 @@ class AccuracyCalculator:
     def calculate_recall_at_100(self, knn_labels, query_labels, **kwargs):
         return recall_at_k(knn_labels, query_labels[:, None], 100)
 
-
     def calculate_mean_average_precision_at_r(self, knn_labels, query_labels, embeddings_come_from_same_source=False,
                                               label_counts=None, **kwargs):
         return mean_average_precision_at_r(knn_labels, query_labels[:, None], embeddings_come_from_same_source,

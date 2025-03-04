@@ -9,7 +9,7 @@ NAME: contrastive
 
 MODEL:
   BACKBONE:
-    NAME: resnet50
+    NAME: mobilenet
   HEAD:
     DIM: 256
     IN_CHANNELS: 2048

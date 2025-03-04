@@ -9,9 +9,9 @@ NAME: contrastive
 
 MODEL:
   BACKBONE:
-    NAME: mobilenet
+    NAME: resnet
   HEAD:
-    DIM: 128
+    DIM: 256
     IN_CHANNELS: 2048
 
 LOSSES:
@@ -29,11 +29,11 @@ SOLVER:
   OPTIMIZER_NAME: Adam
   BASE_LR: 0.0001 
   WEIGHT_DECAY: 0.0005
-  CHECKPOINT_PERIOD: 10000
+  CHECKPOINT_PERIOD: 1000
 
 # 结果保存路径
-SAVE_DIR: /root/shared-nvme/dim
-NAME: dim128 
+SAVE_DIR: /root/shared-nvme/backbone/
+NAME: resnet
   
 DATA:
   TRAIN_IMG_SOURCE: /root/shared-nvme/Stanford_Online_Products/Ebay_train.txt
@@ -45,7 +45,7 @@ DATA:
   SAMPLE: RandomIdentitySampler
 
 VALIDATION:
-  VERBOSE: 10000
+  VERBOSE: 1000
 
 XBM:
   ENABLE: True

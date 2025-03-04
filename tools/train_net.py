@@ -19,7 +19,7 @@ import os
 
 from ret_benchmark.config import cfg
 from ret_benchmark.data import build_data
-from ret_benchmark.engine.trainer import do_train
+from ret_benchmark.engine.trainer import do_train, do_test
 from ret_benchmark.losses import build_loss
 from ret_benchmark.modeling import build_model
 from ret_benchmark.solver import build_lr_scheduler, build_optimizer
@@ -49,10 +49,17 @@ class CustomResNet50(torch.nn.Module):
         return x
 
 class MyNet(torch.nn.Module):
-    def __init__(self, num_classes=256):
+    def __init__(self, model, num_classes=256):
         super(MyNet, self).__init__()
-        self.backbone = models.mobilenet_v3_large(weights='IMAGENET1K_V2').features
-        self.fc = nn.Linear(960, num_classes)
+        if model == 'mobilenet':
+            self.backbone = models.mobilenet_v3_large(weights='IMAGENET1K_V2').features
+            self.fc = nn.Linear(960, cfg.MODEL.HEAD.DIM)
+        elif model == 'resnet':
+            self.backbone = torch.nn.Sequential(*list(models.resnet50(weights=models.ResNet50_Weights.DEFAULT).children())[:-2])
+            self.fc = nn.Linear(2048, cfg.MODEL.HEAD.DIM)
+        elif model == 'googlenet':
+            self.backbone = torch.nn.Sequential(*list(models.googlenet(weights=models.GoogLeNet_Weights.DEFAULT).children())[:-3])
+            self.fc = nn.Linear(1024, cfg.MODEL.HEAD.DIM)
         torch.nn.init.xavier_normal_(self.fc.weight)
         torch.nn.init.constant_(self.fc.bias, 0.0)
 
@@ -68,14 +75,12 @@ class MyNet(torch.nn.Module):
         return x
 
 
-
-
 def train(cfg):
     logger = setup_logger(name="Train", level=cfg.LOGGER.LEVEL)
     logger.info(cfg)
     # model = build_model(cfg)
     # model = CustomResNet50(cfg.MODEL.HEAD.DIM)
-    model = MyNet(cfg.MODEL.HEAD.DIM)
+    model = MyNet(cfg.MODEL.BACKBONE.NAME, cfg.MODEL.HEAD.DIM)
     device = torch.device(cfg.MODEL.DEVICE)
     model.to(device)
     # if len(os.environ["CUDA_VISIBLE_DEVICES"]) > 1:
@@ -121,6 +126,19 @@ def train(cfg):
         logger,
     )
 
+def test(cfg):
+    logger = setup_logger(name="Test", level=cfg.LOGGER.LEVEL)
+    logger.info(cfg)
+    model = MyNet(cfg.MODEL.HEAD.DIM)
+    device = torch.device(cfg.MODEL.DEVICE)
+    model.to(device)
+
+    ckp = torch.load('/root/shared-nvme/dim/dim512/model_040000.pth')
+    model.load_state_dict(ckp['model'])
+
+    val_loader = build_data(cfg, is_train=False)
+    do_test(cfg, model, val_loader, logger)
+
 
 def parse_args():
     """
@@ -137,3 +155,4 @@ if __name__ == "__main__":
     args = parse_args()
     cfg.merge_from_file(args.cfg_file)
     train(cfg)
+    # test(cfg)
