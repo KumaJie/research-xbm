@@ -183,12 +183,14 @@ def do_test(
     labels = np.array(labels)
     # 提取测试集的所有特征
     feats = feat_extractor(model, val_loader[0], logger=logger)
-    print(feats.shape, labels.shape)
     # ret_metric = AccuracyCalculator(include=("precision_at_1", "mean_average_precision_at_r", "r_precision"), exclude=())
     # # 计算 R@1 R@10 R@100
     # ret_metric = AccuracyCalculator(include=("recall_at_1", "recall_at_10", "recall_at_100",  "recall_at_1000", "mean_average_precision_at_r"), exclude=())
     # ret_metric = ret_metric.get_accuracy(feats, feats, labels, labels, True)
     # logger.info(f"Performance : {ret_metric}")
     ret = RetMetric(feats, labels)
-    print(ret.recall_k(1), ret.recall_k(10),ret.recall_k(100),ret.recall_k(1000),)
+    recall = {}
+    for k in (1, 10, 100, 1000):
+        recall[f'Recall@{k}'] = ret.recall_k(k)
+    logger.info(f'{cfg.MODEL.BACKBONE.NAME} Mertic: {recall}')
             

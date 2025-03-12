@@ -65,7 +65,12 @@ class MyNet(torch.nn.Module):
 
 
     def gem(self, x, p=3, eps=1e-6):
-        return F.avg_pool2d(x.clamp(min=eps).pow(p), (x.size(-2), x.size(-1))).pow(1. / p)
+        N, C, H, W = x.size()
+        x = x.reshape(N, C, H * W)  # Combine spatial dimensions
+        mean = x.clamp(min=eps).pow(p).mean(dim=2)
+        r = 1.0 / p
+        return mean.pow(r)
+        # return F.avg_pool2d(x.clamp(min=eps).pow(p), (x.size(-2), x.size(-1))).pow(1. / p)
 
     def forward(self, x):
         x = self.backbone(x)
@@ -129,11 +134,11 @@ def train(cfg):
 def test(cfg):
     logger = setup_logger(name="Test", level=cfg.LOGGER.LEVEL)
     logger.info(cfg)
-    model = MyNet(cfg.MODEL.HEAD.DIM)
+    model = MyNet(cfg.MODEL.BACKBONE.NAME, cfg.MODEL.HEAD.DIM)
     device = torch.device(cfg.MODEL.DEVICE)
     model.to(device)
 
-    ckp = torch.load('/root/shared-nvme/dim/dim512/model_040000.pth')
+    ckp = torch.load(f'{cfg.SAVE_DIR}/{cfg.NAME}/model_040000.pth')
     model.load_state_dict(ckp['model'])
 
     val_loader = build_data(cfg, is_train=False)
@@ -154,5 +159,5 @@ def parse_args():
 if __name__ == "__main__":
     args = parse_args()
     cfg.merge_from_file(args.cfg_file)
-    train(cfg)
-    # test(cfg)
+    # train(cfg)
+    test(cfg)
