@@ -1,1 +1,1 @@
-python -u tools/train_net.py --cfg configs/backbone/googlenet.yaml >> /root/shared-nvme/backbone/googlenet/log 2>&1 &
+python -u tools/train_net.py --cfg configs/xbm/mobilenet_10000.yaml >> /root/shared-nvme/xbm/xbm10000/log 2>&1 &
