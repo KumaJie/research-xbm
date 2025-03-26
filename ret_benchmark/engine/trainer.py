@@ -10,6 +10,7 @@ import time
 
 import numpy as np
 import torch
+import faiss
 
 from ret_benchmark.data.evaluations.eval import AccuracyCalculator
 from ret_benchmark.data.evaluations.ret_metric import RetMetric
@@ -193,4 +194,61 @@ def do_test(
     for k in (1, 10, 100, 1000):
         recall[f'Recall@{k}'] = ret.recall_k(k)
     logger.info(f'{cfg.MODEL.BACKBONE.NAME} Mertic: {recall}')
+
+def do_own(
+    cfg,
+    model,
+    val_loader,
+    logger,
+):
+    # 获取测试集的标签
+    labels = val_loader[0].dataset.label_list
+    labels = np.array(labels)
+    # 提取测试集的所有特征
+    feats = feat_extractor(model, val_loader[0], logger=logger)
+    indices = get_knn(feats, feats, 1000)
+
+    index_dict = val_loader.label_index_dict
+    sum_ap = 0
+    for i in range(len(labels)):
+        nres = len(index_dict[labels[i]])
+        ranks = np.where(np.isin(indices, index_dict[labels[i]]))
+        if (ranks != nres - 1):
+            logger.error("not match")
+        sum_ap = ap(ranks, nres)
+    logger.info(f"mAP : %.5f"%(sum_ap/len(labels)))
+
+def ap(ranks, nres):
+    ap=0.0
+    # All have an x-size of:
+    recall_step=1.0/nres
+        
+    for ntp,rank in enumerate(ranks):
+        
+        # y-size on left side of trapezoid:
+        # ntp = nb of true positives so far
+        # rank = nb of retrieved items so far
+        if rank==0: precision_0=1.0
+        else:       precision_0=ntp/float(rank)
+
+        # y-size on right side of trapezoid:
+        # ntp and rank are increased by one
+        precision_1=(ntp+1)/float(rank+1)
+        
+        ap+=(precision_1+precision_0)*recall_step/2.0
+    return ap
+
+def get_knn(
+    reference_embeddings, test_embeddings, k, 
+):
+
+    d = reference_embeddings.shape[1]
+    
+    index = faiss.IndexFlatIP(d)
+    if faiss.get_num_gpus() > 0:
+        index = faiss.index_cpu_to_all_gpus(index)
+    index.add(reference_embeddings)
+    _, indices = index.search(test_embeddings, k + 1)
+   
+    return indices[:, 1:]
             
