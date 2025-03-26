@@ -16,7 +16,7 @@ from torch.utils.data import Dataset
 from ret_benchmark.utils.img_reader import read_image
 
 
-class BaseDataSet(Dataset):
+class MyDataSet(Dataset):
     """
     Basic Dataset read image path from img_source
     img_source: list of img_path and label
@@ -31,6 +31,7 @@ class BaseDataSet(Dataset):
 
         self.label_list = list()
         self.path_list = list()
+        self.query_list = list()
         self._load_data()
         self.label_index_dict = self._build_label_index_dict()
 
@@ -48,13 +49,19 @@ class BaseDataSet(Dataset):
             data = json.load(f)
 
         label = 0
+        i = 0
         for key, values in data.items():
             self.path_list.append(key)
             self.label_list.append(label)
+            self.query_list.append(i)
+            i += 1
             for value in values:
-                self.path_list.append(key)
+                self.path_list.append(value)
                 self.label_list.append(label)
+                i += 1
             label += 1
+        
+        print(self.__str__())
 
 
     def _build_label_index_dict(self):

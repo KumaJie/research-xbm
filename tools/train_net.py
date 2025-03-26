@@ -19,7 +19,7 @@ import os
 
 from ret_benchmark.config import cfg
 from ret_benchmark.data import build_data
-from ret_benchmark.engine.trainer import do_train, do_test
+from ret_benchmark.engine.trainer import do_train, do_test, do_own
 from ret_benchmark.losses import build_loss
 from ret_benchmark.modeling import build_model
 from ret_benchmark.solver import build_lr_scheduler, build_optimizer
@@ -133,16 +133,19 @@ def train(cfg):
 
 def test(cfg):
     logger = setup_logger(name="Test", level=cfg.LOGGER.LEVEL)
-    logger.info(cfg)
-    model = MyNet(cfg.MODEL.BACKBONE.NAME, cfg.MODEL.HEAD.DIM)
+    # logger.info(cfg)
+    # model = MyNet(cfg.MODEL.BACKBONE.NAME, cfg.MODEL.HEAD.DIM)
+    # model = models.resnet50(weights=models.ResNet50_Weights.DEFAULT)
+    model = models.mobilenet_v3_large(weights='IMAGENET1K_V2')
     device = torch.device(cfg.MODEL.DEVICE)
     model.to(device)
 
-    ckp = torch.load(f'{cfg.SAVE_DIR}/{cfg.NAME}/model_040000.pth')
-    model.load_state_dict(ckp['model'])
+    # ckp = torch.load(f'{cfg.SAVE_DIR}/{cfg.NAME}/model_040000.pth', weights_only=True)
+    # model.load_state_dict(ckp['model'])
 
     val_loader = build_data(cfg, is_train=False)
-    do_test(cfg, model, val_loader, logger)
+
+    do_own(cfg, model, val_loader, logger)
 
 
 def parse_args():

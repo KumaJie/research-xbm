@@ -201,22 +201,33 @@ def do_own(
     val_loader,
     logger,
 ):
+    logger.info(f"start mertic {cfg.DNAME}")
     # 获取测试集的标签
     labels = val_loader[0].dataset.label_list
     labels = np.array(labels)
     # 提取测试集的所有特征
     feats = feat_extractor(model, val_loader[0], logger=logger)
-    indices = get_knn(feats, feats, 1000)
+    dists, indices = get_knn(feats, feats, 1000, True)
 
-    index_dict = val_loader.label_index_dict
+    index_dict = val_loader[0].dataset.label_index_dict
+    query = range(len(labels))
+    if cfg.DNAME == 'holidays':
+        query = val_loader[0].dataset.query_list
+
     sum_ap = 0
-    for i in range(len(labels)):
+    # ns = 0
+    for i in query:
         nres = len(index_dict[labels[i]])
-        ranks = np.where(np.isin(indices, index_dict[labels[i]]))
-        if (ranks != nres - 1):
-            logger.error("not match")
-        sum_ap = ap(ranks, nres)
-    logger.info(f"mAP : %.5f"%(sum_ap/len(labels)))
+        ranks = np.where(np.isin(indices[i], index_dict[labels[i]]))[0]
+        # if (len(ranks) != (nres - 1)):
+        #     logger.error(f"{val_loader[0].dataset.path_list[i]} not match")
+        # ns += np.sum(ranks <= 2) + 1
+        sum_ap += ap(ranks, nres - 1)
+    logger.info(f"mAP : %.5f"%(sum_ap/len(query)))
+
+    # logger.info(f"mAP : %.5f"%(sum_ap/len(val_loader[0].dataset.query_list)))
+    # logger.info(f"ns : %.5f"%(ns/len(labels)))
+
 
 def ap(ranks, nres):
     ap=0.0
@@ -239,7 +250,7 @@ def ap(ranks, nres):
     return ap
 
 def get_knn(
-    reference_embeddings, test_embeddings, k, 
+    reference_embeddings, test_embeddings, k, same
 ):
 
     d = reference_embeddings.shape[1]
@@ -248,7 +259,7 @@ def get_knn(
     if faiss.get_num_gpus() > 0:
         index = faiss.index_cpu_to_all_gpus(index)
     index.add(reference_embeddings)
-    _, indices = index.search(test_embeddings, k + 1)
-   
-    return indices[:, 1:]
-            
+    dists, indices = index.search(test_embeddings, k + 1)
+    if same:
+        return dists[:, 1:], indices[:, 1:]
+    return dists[:, :k], indices[:, :k]        

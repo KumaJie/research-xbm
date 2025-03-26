@@ -14,6 +14,7 @@ from .model_path import MODEL_PATH
 
 _C = CN()
 
+_C.DNAME = ""
 _C.NAME = "default"
 
 _C.MODEL = CN()

@@ -8,7 +8,7 @@
 from torch.utils.data import DataLoader
 
 from .collate_batch import collate_fn
-from .datasets import BaseDataSet
+from .datasets import BaseDataSet, MyDataSet
 from .samplers import RandomIdentitySampler
 from .transforms import build_transforms
 
@@ -54,7 +54,8 @@ def build_data(cfg, is_train=True):
             cfg.DATA.PKUVID_IMG_SOURCE,
         ]:
             if len(x) != 0:
-                dataset = BaseDataSet(x, transforms=transforms, mode=cfg.INPUT.MODE)
+                # dataset = BaseDataSet(x, transforms=transforms, mode=cfg.INPUT.MODE)
+                dataset = MyDataSet(x, transforms=transforms, mode=cfg.INPUT.MODE)
                 data_loader = DataLoader(
                     dataset,
                     # collate_fn=collate_fn,
